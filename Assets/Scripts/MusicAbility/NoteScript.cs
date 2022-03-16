@@ -6,12 +6,9 @@ public class NoteScript : MonoBehaviour
 {
     public float noteSpeed;
     Rigidbody2D rb;
-
-    public Vector2 notePos;
     
     private void Awake() {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        notePos = gameObject.transform.position;
     }
 
     private void FixedUpdate() {

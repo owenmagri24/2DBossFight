@@ -321,7 +321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usingSpawner: 0
-  whichPresser: 0
+  playerPressers:
+  - {fileID: 578529289}
+  - {fileID: 696270415}
 --- !u!1 &216701860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,10 +1007,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 11400000, guid: fd5f62652479c4e769a1db8c506b0308, type: 2}
-  playerPressers:
-  - {fileID: 578529289}
-  - {fileID: 696270415}
-  noteScript: {fileID: -460995720539954387, guid: 44f0f821fe50142bc952eafb228bbd61, type: 3}
   state: 0
 --- !u!4 &1038916848
 Transform:
@@ -1023,7 +1021,7 @@ Transform:
   m_Children:
   - {fileID: 1659011096}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1038916849
 MonoBehaviour:
@@ -1089,10 +1087,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 11400000, guid: 00015c5141d27384f9d3675a36e096d6, type: 2}
-  playerPressers:
-  - {fileID: 578529289}
-  - {fileID: 696270415}
-  noteScript: {fileID: -460995720539954387, guid: 94f862ba51afe144fb0edc9ec709a611, type: 3}
   state: 0
 --- !u!1 &1063793046
 GameObject:
@@ -1220,7 +1214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1369066094
 GameObject:

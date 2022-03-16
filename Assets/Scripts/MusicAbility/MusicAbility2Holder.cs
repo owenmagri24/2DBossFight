@@ -10,10 +10,6 @@ public class MusicAbility2Holder : MonoBehaviour
     KeyCode key;
     GameObject whichPresser;
 
-    public GameObject[] playerPressers;
-
-    public NoteScript noteScript;
-
     public enum AbilityState{
         ready,
         active,
@@ -36,15 +32,8 @@ public class MusicAbility2Holder : MonoBehaviour
                 if(Input.GetKeyDown(key)) //Player presses ability key
                 {
                     ability.Activate(gameObject);
-                    whichPresser = checkWhichPresser();
-                    if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
-                    {
-                        playerPressers[0].SetActive(true);
-                    }
-                    else
-                    {
-                        playerPressers[1].SetActive(true);
-                    }
+                    whichPresser = AbilityManager.instance.checkWhichPresser();
+                    whichPresser.SetActive(true);
                     state = AbilityState.active; //set state to active
                 }
             break;
@@ -72,20 +61,6 @@ public class MusicAbility2Holder : MonoBehaviour
                 }
             break;
         }
-    }
-
-    private GameObject checkWhichPresser()
-    {
-        for (int i = 0; i < playerPressers.Length; i++)
-        {
-            Debug.Log("Note Pos: "+ ability.note.transform.position.y + " . Presser pos: "+ playerPressers[i].transform.position.y);
-            if(ability.note.transform.position.y == playerPressers[i].transform.position.y)
-            {
-                return playerPressers[i];
-            }
-        }
-        Debug.Log("return null");
-        return null;
     }
 
 }
