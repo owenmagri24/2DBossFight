@@ -6,7 +6,6 @@ public class NoteScript : MonoBehaviour
 {
     public float noteSpeed;
     Rigidbody2D rb;
-    private bool inSkillCheck;
     
     private void Awake() {
         rb = gameObject.GetComponent<Rigidbody2D>();

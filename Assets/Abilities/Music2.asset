@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b055f58b4c4c594c8c282123ae7787a, type: 3}
-  m_Name: Music
+  m_Name: Music2
   m_EditorClassIdentifier: 
-  name: Music
+  name: Music2
   cooldownTime: 5
   activeTime: 0
-  key: 113
-  skillNote: {fileID: 3097109400265963379, guid: 94f862ba51afe144fb0edc9ec709a611, type: 3}
+  key: 101
+  skillNote: {fileID: 3097109400265963379, guid: 44f0f821fe50142bc952eafb228bbd61, type: 3}
   noteSpawners:
   - {fileID: 5427480210042669963, guid: 1013068e0d6a6dd4cabb3668979b87dd, type: 3}
   - {fileID: 5427480210042669963, guid: 521993efc5d944ccdaac6374b22eb403, type: 3}
+  playerPressers:
+  - {fileID: 1144028653497104781, guid: dd946f9a514b24de08cf47f3af958f5e, type: 3}
+  - {fileID: 7140815780769607524, guid: 25e0cb4256c1b4cb483686e969f32df9, type: 3}
   spawningReady: 0

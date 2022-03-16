@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicAbilityHolder : MonoBehaviour
+public class MusicAbility2Holder : MonoBehaviour
 {
     public MusicAbility ability;
     float cooldownTime;
@@ -27,7 +27,6 @@ public class MusicAbilityHolder : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(ability.usingSpawner);
         switch (state)
         {
             case AbilityState.ready:
@@ -36,18 +35,26 @@ public class MusicAbilityHolder : MonoBehaviour
                 {
                     ability.Activate(gameObject);
                     state = AbilityState.active; //set state to active
-                    if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
-                    {
-                        whichPresser = 0;
-                    }
-                    else
-                    {
-                        whichPresser = 1;
-                    }
+                }
+                if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
+                {
+                    whichPresser = 0;//put this in abilitymanager
+                }
+                else
+                {
+                    whichPresser = 1;
                 }
             break;
 
             case AbilityState.active:
+                if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
+                {
+                    whichPresser = 0;
+                }
+                else
+                {
+                    whichPresser = 1;
+                }
 
                 playerPressers[whichPresser].SetActive(true); //turn on playerpress depending on whichpresser 
                 
