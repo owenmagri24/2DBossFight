@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement instance; //instance created to call coroutine in MusicAbility script
 
     Rigidbody2D rb;
     public float normalAcceleration;
@@ -16,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         acceleration = normalAcceleration;
-        PlayerMovement.instance = this;
     }
 
 

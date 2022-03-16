@@ -286,6 +286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 129366334}
+  - component: {fileID: 129366335}
   m_Layer: 0
   m_Name: AbilityManager
   m_TagString: Untagged
@@ -307,6 +308,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &129366335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129366333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0403e97bc7255cd4eb197e0535b27bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usingSpawner: 0
+  whichPresser: 0
 --- !u!1 &216701860
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +1008,7 @@ MonoBehaviour:
   playerPressers:
   - {fileID: 578529289}
   - {fileID: 696270415}
+  noteScript: {fileID: -460995720539954387, guid: 44f0f821fe50142bc952eafb228bbd61, type: 3}
   state: 0
 --- !u!4 &1038916848
 Transform:
@@ -1076,6 +1092,7 @@ MonoBehaviour:
   playerPressers:
   - {fileID: 578529289}
   - {fileID: 696270415}
+  noteScript: {fileID: -460995720539954387, guid: 94f862ba51afe144fb0edc9ec709a611, type: 3}
   state: 0
 --- !u!1 &1063793046
 GameObject:

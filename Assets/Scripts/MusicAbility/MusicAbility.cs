@@ -6,38 +6,37 @@ using UnityEngine;
 public class MusicAbility : AbilityBase
 {
     public GameObject skillNote;
-    //public GameObject noteSpawner;
     public GameObject[] noteSpawners;
     [HideInInspector] public bool spawningReady;
-    public bool usingSpawner = false; //put these in abilitymanager
+    [HideInInspector] public GameObject note;
 
     public override void Activate(GameObject parent)
     {
-        PlayerMovement.instance.StartCoroutine(note1Spawn()); //using playermovement instance because scriptableobjects cannot start coroutines
+        AbilityManager.instance.StartCoroutine(noteSpawn());
     }
 
-    public IEnumerator note1Spawn()
+    public IEnumerator noteSpawn()
     {
         spawningReady = false;
 
-        if(!usingSpawner)
+        if(!AbilityManager.instance.usingSpawner) //if first spawner is not being used
         {
-            usingSpawner = true;
+            AbilityManager.instance.usingSpawner = true; //using first spawner
             for (int i = 0; i < Random.Range(3,6); i++)
             {
-                Instantiate(skillNote, noteSpawners[0].transform.position, Quaternion.identity);
+                note = Instantiate(skillNote, noteSpawners[0].transform.position, Quaternion.identity); //instantiate at first spawner
                 yield return new WaitForSeconds(1f);
             }
-            usingSpawner = false;
+            AbilityManager.instance.usingSpawner = false; //finished using first spawner
         }
-        else if(usingSpawner)
+        else if(AbilityManager.instance.usingSpawner) //first spawner being used
         {
             for (int i = 0; i < Random.Range(3,6); i++)
             {
-                Instantiate(skillNote, noteSpawners[1].transform.position, Quaternion.identity);
+                note = Instantiate(skillNote, noteSpawners[1].transform.position, Quaternion.identity); //instantiate at second spawner
                 yield return new WaitForSeconds(1f);
             }
-            usingSpawner = false;
+            AbilityManager.instance.usingSpawner = false; //finished usingspawner
         }
 
         spawningReady = true;

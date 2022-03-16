@@ -8,9 +8,11 @@ public class MusicAbility2Holder : MonoBehaviour
     float cooldownTime;
     float startingCoolDownTime;
     KeyCode key;
+    GameObject whichPresser;
 
     public GameObject[] playerPressers;
-    private int whichPresser;
+
+    public NoteScript noteScript;
 
     public enum AbilityState{
         ready,
@@ -34,30 +36,20 @@ public class MusicAbility2Holder : MonoBehaviour
                 if(Input.GetKeyDown(key)) //Player presses ability key
                 {
                     ability.Activate(gameObject);
+                    whichPresser = checkWhichPresser();
+                    if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
+                    {
+                        playerPressers[0].SetActive(true);
+                    }
+                    else
+                    {
+                        playerPressers[1].SetActive(true);
+                    }
                     state = AbilityState.active; //set state to active
-                }
-                if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
-                {
-                    whichPresser = 0;//put this in abilitymanager
-                }
-                else
-                {
-                    whichPresser = 1;
                 }
             break;
 
             case AbilityState.active:
-                if(!playerPressers[0].activeSelf) //if playerpresser0 is not active
-                {
-                    whichPresser = 0;
-                }
-                else
-                {
-                    whichPresser = 1;
-                }
-
-                playerPressers[whichPresser].SetActive(true); //turn on playerpress depending on whichpresser 
-                
                 if(ability.spawningReady) //when spawning finishes
                 {
                     state = AbilityState.cooldown;
@@ -69,9 +61,10 @@ public class MusicAbility2Holder : MonoBehaviour
             case AbilityState.cooldown:
                 if(cooldownTime > 0){
                     cooldownTime -= Time.deltaTime;
-                    if(cooldownTime < startingCoolDownTime - 1.5f && playerPressers[whichPresser].activeSelf) //1second after cooldown starts and playerpress is active
+
+                    if(cooldownTime < startingCoolDownTime - 1.5f) //1second after cooldown starts
                     {
-                        playerPressers[whichPresser].SetActive(false);
+                        whichPresser.SetActive(false);
                     }
                 }
                 else{ //when ability cooldowntime is ready
@@ -80,4 +73,19 @@ public class MusicAbility2Holder : MonoBehaviour
             break;
         }
     }
+
+    private GameObject checkWhichPresser()
+    {
+        for (int i = 0; i < playerPressers.Length; i++)
+        {
+            Debug.Log("Note Pos: "+ ability.note.transform.position.y + " . Presser pos: "+ playerPressers[i].transform.position.y);
+            if(ability.note.transform.position.y == playerPressers[i].transform.position.y)
+            {
+                return playerPressers[i];
+            }
+        }
+        Debug.Log("return null");
+        return null;
+    }
+
 }
