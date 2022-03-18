@@ -9,6 +9,7 @@ public class AbilityManager : MonoBehaviour
     public bool usingSpawner; //used in MusicAbility
     public GameObject[] playerPressers;
 
+
     void Awake()
     {
         if(instance == null)
@@ -33,5 +34,6 @@ public class AbilityManager : MonoBehaviour
         Debug.Log("return null");
         return null;
     }
+    
 
 }
