@@ -2009,6 +2009,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1144028653497104777, guid: dd946f9a514b24de08cf47f3af958f5e, type: 3}
+      propertyPath: key
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: 1144028653497104781, guid: dd946f9a514b24de08cf47f3af958f5e, type: 3}
       propertyPath: m_Name
       value: PlayerPress
@@ -2178,6 +2182,10 @@ PrefabInstance:
     - target: {fileID: 7140815780769607544, guid: 25e0cb4256c1b4cb483686e969f32df9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140815780769607547, guid: 25e0cb4256c1b4cb483686e969f32df9, type: 3}
+      propertyPath: key
+      value: 113
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e0cb4256c1b4cb483686e969f32df9, type: 3}
