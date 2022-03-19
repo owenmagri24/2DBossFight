@@ -21,6 +21,14 @@ public class UIManager : MonoBehaviour
     bool isCooldown2 = false;
     KeyCode musicKey;
 
+    [Header("Music Ability 2")]
+    public MusicAbility2Holder musicAbilityHolder2;
+    public MusicAbility ability3;
+    public Image musicImage2;
+    float musicCooldown2;
+    bool isCooldown3 = false;
+    KeyCode musicKey2;
+
     void Start()
     {
         //Dash Ability
@@ -30,6 +38,10 @@ public class UIManager : MonoBehaviour
         //Music Ability
         musicKey = ability2.key;
         musicImage.fillAmount = 0;
+        
+        //Music 2 Ability
+        musicKey2 = ability3.key;
+        musicImage2.fillAmount = 0;
 
     }
 
@@ -38,6 +50,7 @@ public class UIManager : MonoBehaviour
     {
         DashAbility();
         MusicAbility();
+        MusicAbility2();
     }
 
     
@@ -95,6 +108,35 @@ public class UIManager : MonoBehaviour
         else //ability ready
         {
             musicImage.fillAmount = 0;
+        }
+    }
+
+    void MusicAbility2()
+    {
+        if(musicAbilityHolder2.state != MusicAbility2Holder.AbilityState.ready)
+        {
+            if(isCooldown3 == false)
+            {
+                musicCooldown2 = ability3.cooldownTime;
+                isCooldown3 = true;
+                musicImage2.fillAmount = 1;
+            }
+            if(isCooldown3)
+            {
+                if(ability3.spawningReady)
+                {
+                    musicImage2.fillAmount -= 1 / musicCooldown2 * Time.deltaTime;
+                }
+                if(musicImage2.fillAmount <= 0) //if fillamount is finished (cd finished)
+                {
+                    musicImage2.fillAmount = 0;
+                    isCooldown3 = false;
+                }
+            }
+        }
+        else //ability ready
+        {
+            musicImage2.fillAmount = 0;
         }
     }
 }

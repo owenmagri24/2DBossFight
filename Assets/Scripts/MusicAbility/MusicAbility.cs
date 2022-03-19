@@ -20,6 +20,7 @@ public class MusicAbility : AbilityBase
 
         if(!AbilityManager.instance.usingSpawner) //if first spawner is not being used
         {
+            Debug.Log("Using Spawner True");
             AbilityManager.instance.usingSpawner = true; //using first spawner
             for (int i = 0; i < Random.Range(3,6); i++)
             {

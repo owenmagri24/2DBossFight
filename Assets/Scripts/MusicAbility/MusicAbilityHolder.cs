@@ -6,7 +6,6 @@ public class MusicAbilityHolder : MonoBehaviour
 {
     public MusicAbility ability;
     float cooldownTime;
-    float startingCoolDownTime;
     KeyCode key;
     GameObject whichPresser;
 
@@ -33,7 +32,6 @@ public class MusicAbilityHolder : MonoBehaviour
                     ability.Activate(gameObject);
                     whichPresser = AbilityManager.instance.checkWhichPresser();
                     whichPresser.SetActive(true);
-                    
                     whichPresser.GetComponent<SkillCheck>().presserKey = key;
 
                     state = AbilityState.active; //set state to active
@@ -43,21 +41,16 @@ public class MusicAbilityHolder : MonoBehaviour
             case AbilityState.active:
                 if(ability.spawningReady) //when spawning finishes
                 {
-                    state = AbilityState.cooldown;
                     cooldownTime = ability.cooldownTime;
-                    startingCoolDownTime = cooldownTime;
+                    Debug.Log("Red turned using Spawner false");
+                    AbilityManager.instance.TurnOffPresser(whichPresser, cooldownTime - 2.8f); //turn off presser and usingspawner to false after delay
+                    state = AbilityState.cooldown;
                 }
             break;
 
             case AbilityState.cooldown:
                 if(cooldownTime > 0){
                     cooldownTime -= Time.deltaTime;
-
-                    if(cooldownTime < startingCoolDownTime - 1.5f) //1second after spawning stops and cooldown starts
-                    {
-                        whichPresser.SetActive(false);
-                        AbilityManager.instance.usingSpawner = false;
-                    }
                 }
                 else{ //when ability cooldowntime is ready
                     state = AbilityState.ready; //set state to active

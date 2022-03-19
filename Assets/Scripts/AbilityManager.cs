@@ -34,6 +34,20 @@ public class AbilityManager : MonoBehaviour
         Debug.Log("return null");
         return null;
     }
-    
+
+    public void TurnOffPresser(GameObject presser, float delay)
+    {
+        StartCoroutine(TurnPresserOff(presser, delay));
+    }
+
+    IEnumerator TurnPresserOff(GameObject _presser, float _delay)
+    {
+        yield return new WaitForSeconds(_delay);
+        _presser.SetActive(false);
+        if(_presser == playerPressers[0])
+        {
+            usingSpawner = false;
+        }
+    }
 
 }
