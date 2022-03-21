@@ -45,7 +45,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: TileMaps
+  - name: TileMapBase
     uniqueID: 1750677139
     locked: 0
   - name: SkillCheck
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 207931575
+    locked: 0
+  - name: TileMapWalls
+    uniqueID: 3710362645
     locked: 0
