@@ -42,7 +42,6 @@ public class MusicAbilityHolder : MonoBehaviour
                 if(ability.spawningReady) //when spawning finishes
                 {
                     cooldownTime = ability.cooldownTime;
-                    Debug.Log("Red turned using Spawner false");
                     AbilityManager.instance.TurnOffPresser(whichPresser, cooldownTime - 2.8f); //turn off presser and usingspawner to false after delay
                     state = AbilityState.cooldown;
                 }

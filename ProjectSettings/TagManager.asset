@@ -45,6 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TileMaps
+    uniqueID: 1750677139
+    locked: 0
   - name: SkillCheck
     uniqueID: 885750679
     locked: 0
