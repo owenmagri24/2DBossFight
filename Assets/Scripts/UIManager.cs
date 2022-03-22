@@ -29,6 +29,10 @@ public class UIManager : MonoBehaviour
     bool isCooldown3 = false;
     KeyCode musicKey2;
 
+    [Header("Boss")]
+    public BossController bossController;
+    public Slider bossUIHealthBar;
+
     void Start()
     {
         //Dash Ability
@@ -43,6 +47,9 @@ public class UIManager : MonoBehaviour
         musicKey2 = ability3.key;
         musicImage2.fillAmount = 0;
 
+        //Set boss health bar max value to boss health
+        bossUIHealthBar.maxValue = bossController.health;
+
     }
 
 
@@ -51,6 +58,7 @@ public class UIManager : MonoBehaviour
         DashAbility();
         MusicAbility();
         MusicAbility2();
+        UpdateBossHealth();
     }
 
     
@@ -138,5 +146,10 @@ public class UIManager : MonoBehaviour
         {
             musicImage2.fillAmount = 0;
         }
+    }
+
+    void UpdateBossHealth()
+    {
+        bossUIHealthBar.value = bossController.health;
     }
 }
