@@ -16,4 +16,4 @@ MonoBehaviour:
   cooldownTime: 2
   activeTime: 0.5
   key: 32
-  dashVelocity: 40
+  dashVelocity: 20

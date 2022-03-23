@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         acceleration = normalAcceleration;
+        Physics2D.IgnoreLayerCollision(3,7); //Ignores collision between layer 3 (Player) & layer 7 (Boss)
     }
 
 

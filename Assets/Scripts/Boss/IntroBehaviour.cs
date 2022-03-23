@@ -9,7 +9,8 @@ public class IntroBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        targetGroup = GameObject.FindWithTag("MainCamera").GetComponent<Cinemachine.CinemachineTargetGroup>(); //get target group
+        targetGroup = GameObject.Find("TargetGroup").GetComponent<Cinemachine.CinemachineTargetGroup>(); //get target group
+        animator.transform.parent.GetComponent<CapsuleCollider2D>().enabled = false; //disable capsule collider for intro animation
         
         animator.SetTrigger("Idle");
     }
@@ -30,5 +31,6 @@ public class IntroBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         targetGroup.m_Targets[0].weight = 1; // Change camera to normal
+        animator.transform.parent.GetComponent<CapsuleCollider2D>().enabled = true; //enable capsule collider
     }
 }

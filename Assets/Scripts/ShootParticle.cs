@@ -32,7 +32,10 @@ public class ShootParticle : MonoBehaviour
         
         for (int i = 0; i < events; i++)
         {
-            Debug.Log("hit");
+            if(other.TryGetComponent<BossController>(out BossController bossController))
+            {
+                bossController.health -= 2f;
+            }
         }
     }
 }
