@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NoteScript : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem ps;
     public float noteSpeed;
     Rigidbody2D rb;
     Animator anim;
@@ -22,6 +23,18 @@ public class NoteScript : MonoBehaviour
         }
     }
     
+    public void PlayAbilityPs()
+    {
+        if(gameObject.tag == "Note") //Red Note
+        {
+            AbilityManager.instance.particleSystems[0].Play();
+        }
+        else if(gameObject.tag == "Note2")
+        {
+            //play green note ability
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "PlayerSkillCheck")
         {

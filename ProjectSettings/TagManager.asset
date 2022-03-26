@@ -57,3 +57,6 @@ TagManager:
   - name: TileMapWalls
     uniqueID: 3710362645
     locked: 0
+  - name: Boss
+    uniqueID: 3163110579
+    locked: 0

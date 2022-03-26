@@ -8,6 +8,7 @@ public class AbilityManager : MonoBehaviour
 
     public bool usingSpawner; //used in MusicAbility
     public GameObject[] playerPressers;
+    public ParticleSystem[] particleSystems;
 
 
     void Awake()
@@ -17,6 +18,7 @@ public class AbilityManager : MonoBehaviour
         else if(instance != this)
             Destroy(gameObject);
     }
+
 
     public GameObject checkWhichPresser() //returns which playerPresser to use
     {
@@ -49,5 +51,6 @@ public class AbilityManager : MonoBehaviour
             usingSpawner = false;
         }
     }
+
 
 }

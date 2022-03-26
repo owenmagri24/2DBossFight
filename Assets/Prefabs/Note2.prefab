@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4116169793397167282}
   m_Layer: 6
   m_Name: Note2
-  m_TagString: Note
+  m_TagString: Note2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e83fce1eaa6805408d638810b036917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ps: {fileID: 0}
   noteSpeed: 6
 --- !u!95 &4116169793397167282
 Animator:

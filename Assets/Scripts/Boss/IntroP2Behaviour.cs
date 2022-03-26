@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IntroBehaviour : StateMachineBehaviour
+public class IntroP2Behaviour : StateMachineBehaviour
 {
 
     private Cinemachine.CinemachineTargetGroup targetGroup;
@@ -18,10 +18,10 @@ public class IntroBehaviour : StateMachineBehaviour
 
         if(rand == 0)
         {
-            animator.SetTrigger("Idle");
+            animator.SetTrigger("Idle2");
         }
         else
-            animator.SetTrigger("Run");
+            animator.SetTrigger("Run2");
         
     }
 
