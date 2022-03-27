@@ -13,9 +13,9 @@ public class IdleBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
-        ps = bossController.GetRandomParticleSystem(); //play random particle system
+        ps = ParticleSystemManager.instance.GetRandomBossParticleSystem(); //play random particle system
         initialSpeed = ps.main.simulationSpeed; //get speed of chosen particle system
-        bossController.ChangeParticleSpeed(ps, initialSpeed + 0.2f); //make particles faster
+        ParticleSystemManager.instance.ChangeParticleSpeed(ps, initialSpeed + 0.2f); //make particles faster
 
         ps.Play(); //start particle system
         timer = 0f;//reset timer
@@ -35,7 +35,7 @@ public class IdleBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {   
-        bossController.ResetParticleSpeed(ps, initialSpeed); //reset particle speed
+        ParticleSystemManager.instance.ResetParticleSpeed(ps, initialSpeed); //reset particle speed
         ps.Stop();
     }
 }

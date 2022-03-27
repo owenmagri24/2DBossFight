@@ -13,13 +13,13 @@ public class RunP2Behaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
-        ps = bossController.GetRandomParticleSystem(); //play random particle system
+        ps = ParticleSystemManager.instance.GetRandomBossParticleSystem(); //play random particle system
 
         initialSpeed = ps.main.simulationSpeed; //get speed of chosen particle system
-        initialEmission = bossController.GetEmissionRate(ps); //get emission rate of ps
+        initialEmission = ParticleSystemManager.instance.GetEmissionRate(ps); //get emission rate of ps
 
-        bossController.ChangeParticleSpeed(ps, initialSpeed + 0.2f); //make particles faster
-        bossController.ChangeEmissionRate(ps, initialEmission + 2f); //increase emission rate
+        ParticleSystemManager.instance.ChangeParticleSpeed(ps, initialSpeed + 0.2f); //make particles faster
+        ParticleSystemManager.instance.ChangeEmissionRate(ps, initialEmission + 2f); //increase emission rate
         bossController.moveSpeed += 2f; //make boss move faster
 
         ps.Play(); //start particle system
@@ -40,8 +40,8 @@ public class RunP2Behaviour : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        bossController.ResetParticleSpeed(ps, initialSpeed); //reset particle speed
-        bossController.ResetEmissionRate(ps, initialEmission); //reset emission rate
+        ParticleSystemManager.instance.ResetParticleSpeed(ps, initialSpeed); //reset particle speed
+        ParticleSystemManager.instance.ChangeEmissionRate(ps, initialEmission); //reset emission rate
         bossController.moveSpeed -= 2f; //reset boss speed
         ps.Stop();
     }

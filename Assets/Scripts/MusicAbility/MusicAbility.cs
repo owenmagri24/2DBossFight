@@ -18,6 +18,11 @@ public class MusicAbility : AbilityBase
     {
         spawningReady = false;
 
+        if(skillNote.tag == "Note2")//green note
+        {
+            ParticleSystemManager.instance.PlayerMusicAbility2();
+        }
+
         if(!AbilityManager.instance.usingSpawner) //if first spawner is not being used
         {
             AbilityManager.instance.usingSpawner = true; //using first spawner

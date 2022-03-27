@@ -5,9 +5,10 @@ using UnityEngine;
 public class MusicAbility2Holder : MonoBehaviour
 {
     public MusicAbility ability;
-    float cooldownTime;
-    KeyCode key;
-    GameObject whichPresser;
+    private float cooldownTime;
+    private KeyCode key;
+    private GameObject whichPresser;
+    [SerializeField] private MusicAbility2Particle musicAbility2Particle;
 
     public enum AbilityState{
         ready,
@@ -44,8 +45,8 @@ public class MusicAbility2Holder : MonoBehaviour
                 {
                     cooldownTime = ability.cooldownTime;
                     AbilityManager.instance.TurnOffPresser(whichPresser, cooldownTime - 2.8f); //turn off presser and usingspawner to false after delay
+                    Invoke("ShootParticles", 1f);
                     state = AbilityState.cooldown;
-                    
                 }
             break;
 
@@ -60,4 +61,7 @@ public class MusicAbility2Holder : MonoBehaviour
         }
     }
 
+    private void ShootParticles(){
+        musicAbility2Particle.ShootMusicAbility2Particles();
+    }
 }

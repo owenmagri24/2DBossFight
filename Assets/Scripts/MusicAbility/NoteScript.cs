@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class NoteScript : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem ps;
     public float noteSpeed;
-    Rigidbody2D rb;
-    Animator anim;
+    private Rigidbody2D rb;
+    private Animator anim;
     
     private void Awake() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
+    }
+
+    private void Start() {
     }
 
     private void FixedUpdate() {
@@ -27,11 +29,15 @@ public class NoteScript : MonoBehaviour
     {
         if(gameObject.tag == "Note") //Red Note
         {
-            AbilityManager.instance.particleSystems[0].Play();
+            //Play red note ability with every note hit
+            ParticleSystemManager.instance.playerParticleSystems[0].Play();
         }
         else if(gameObject.tag == "Note2")
         {
             //play green note ability
+            //increase emissionrate with every note hit
+            float emissionRate = ParticleSystemManager.instance.GetEmissionRate(ParticleSystemManager.instance.playerParticleSystems[1]);
+            ParticleSystemManager.instance.ChangeEmissionRate(ParticleSystemManager.instance.playerParticleSystems[1], emissionRate + 0.6f);
         }
     }
 

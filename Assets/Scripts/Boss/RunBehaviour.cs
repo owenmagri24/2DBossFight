@@ -12,7 +12,7 @@ public class RunBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
-        ps = bossController.GetRandomParticleSystem(); //play random particle system
+        ps = ParticleSystemManager.instance.GetRandomBossParticleSystem(); //play random particle system
         ps.Play();
         timer = 0f;
     }
