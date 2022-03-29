@@ -29,6 +29,14 @@ public class UIManager : MonoBehaviour
     bool isCooldown3 = false;
     KeyCode musicKey2;
 
+    [Header("Barrage Ability")]
+    public BarrageAbilityHolder barrageAbilityHolder;
+    public BarrageAbility ability4;
+    public Image barrageImage;
+    float barrageCooldown;
+    bool isCooldown4 = false;
+    KeyCode barrageKey;
+
     [Header("Boss")]
     public BossController bossController;
     public Slider bossUIHealthBar;
@@ -47,6 +55,10 @@ public class UIManager : MonoBehaviour
         musicKey2 = ability3.key;
         musicImage2.fillAmount = 0;
 
+        //Barrage Ability
+        barrageKey = ability4.key;
+        barrageImage.fillAmount = 0;
+
         //Set boss health bar max value to boss health
         bossUIHealthBar.maxValue = bossController.health;
 
@@ -58,6 +70,7 @@ public class UIManager : MonoBehaviour
         DashAbility();
         MusicAbility();
         MusicAbility2();
+        BarrageAbility();
         UpdateBossHealth();
     }
 
@@ -145,6 +158,32 @@ public class UIManager : MonoBehaviour
         else //ability ready
         {
             musicImage2.fillAmount = 0;
+        }
+    }
+
+    void BarrageAbility()
+    {
+        if(barrageAbilityHolder.state == BarrageAbilityHolder.AbilityState.cooldown) //ability active or cd
+        {
+            if(isCooldown4 == false)
+            {
+                isCooldown4 = true;
+                barrageImage.fillAmount = 1;
+            }
+            if(isCooldown4)
+            {
+                barrageImage.fillAmount -= 1 / ability4.cooldownTime * Time.deltaTime; //start reducing fill amount
+
+                if(barrageImage.fillAmount <= 0) //if fillamount is finished (cd finished)
+                {
+                    barrageImage.fillAmount = 0;
+                    isCooldown4 = false;
+                }
+            }
+        }
+        else //ability ready
+        {
+            barrageImage.fillAmount = 0;
         }
     }
 

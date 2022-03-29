@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     //Movement
     Rigidbody2D rb;
-    public float normalAcceleration;
-    [HideInInspector] public float acceleration;
+    public float startingSpeed;
+    [HideInInspector] public float activeSpeed;
     [HideInInspector] public Vector2 movementInput;
 
     //Rotation and animation
@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerSprites;
     private bool facingRight = true;
 
-    
+    //Boundary
+    private Vector2 mapBounds;
 
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
@@ -25,18 +26,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        acceleration = normalAcceleration;
+        activeSpeed = startingSpeed;
         Physics2D.IgnoreLayerCollision(3,7); //Ignores collision between layer 3 (Player) & layer 7 (Boss)
+        mapBounds = new Vector3(12, 9, Camera.main.transform.position.z);
     }
 
 
     void FixedUpdate() 
     {
+        Movement();
+    }
+
+    private void LateUpdate() //Boundary check works smoother in late update
+    {
+        Boundaries();
+    }
+
+    void Movement()
+    {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         playerAttachments.transform.up = (mousePos - (Vector2)transform.position).normalized; //rotate playerattachments
 
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        rb.velocity += movementInput * acceleration * Time.fixedDeltaTime;
+        rb.velocity = movementInput * activeSpeed;
 
         if(movementInput.x < 0 && facingRight)
         {
@@ -49,7 +61,14 @@ public class PlayerMovement : MonoBehaviour
             FlipSprites();
         }
         animator.SetFloat("Speed", movementInput.sqrMagnitude);//animation
-        
+    }
+
+    void Boundaries()
+    {
+        Vector3 viewPos = transform.position;
+        viewPos.x = Mathf.Clamp(viewPos.x, mapBounds.x * -1, mapBounds.x);
+        viewPos.y = Mathf.Clamp(viewPos.y, mapBounds.y * -1, mapBounds.y);
+        transform.position = viewPos;
     }
 
     void FlipSprites()

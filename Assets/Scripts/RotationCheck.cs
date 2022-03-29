@@ -4,17 +4,7 @@ using UnityEngine;
 
 public class RotationCheck : MonoBehaviour
 {
-    public FreezeMechanic freezeMechanic;
-
-    private bool inCheck;
-
-    private void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.Space) && inCheck)
-        {
-            freezeMechanic.MechanicOff();
-        }
-    }
+    public bool inCheck;
 
     private void OnTriggerEnter2D(Collider2D other) 
     {

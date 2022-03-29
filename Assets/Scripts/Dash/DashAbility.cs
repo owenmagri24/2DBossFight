@@ -14,6 +14,7 @@ public class DashAbility : AbilityBase
         Animator anim = parent.GetComponentInChildren<Animator>();
 
         anim.SetTrigger("Dash");
-        rb.velocity = movement.movementInput.normalized * dashVelocity;
+        //rb.velocity = movement.movementInput.normalized * dashVelocity; old dash system
+        movement.activeSpeed = dashVelocity;
     }
 }

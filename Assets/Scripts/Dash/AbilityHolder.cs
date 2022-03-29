@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class AbilityHolder : MonoBehaviour
 {
+    [SerializeField] PlayerMovement playerMovement;
     public AbilityBase ability;
-    float cooldownTime;
-    float activeTime;
-    KeyCode key;
+    private float cooldownTime;
+    private float activeTime;
+    private KeyCode key;
+    private Collider2D coll;
 
     public enum AbilityState{
         ready,
@@ -19,7 +21,7 @@ public class AbilityHolder : MonoBehaviour
 
     private void Start() {
         key = ability.key;
-
+        coll = gameObject.GetComponent<Collider2D>();
     }
 
     void Update()
@@ -38,9 +40,12 @@ public class AbilityHolder : MonoBehaviour
 
             case AbilityState.active:
                 if(activeTime > 0){
+                    coll.enabled = false; //disable player collider
                     activeTime -= Time.deltaTime;
                 }
                 else{ //when active time is ready
+                    playerMovement.activeSpeed = playerMovement.startingSpeed; //reset speed
+                    coll.enabled = true; //enable player collider
                     state = AbilityState.cooldown; //set state to cooldown
                     cooldownTime = ability.cooldownTime; //set cooldoowntime to ability cooldowntime
                 }
