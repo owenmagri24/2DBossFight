@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ShootParticle : MonoBehaviour
 {
-    [SerializeField] new private ParticleSystem particleSystem;
-    List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
-
     private float canFireTime;
     [SerializeField] private float startCanFireTime;
+    [SerializeField] new private ParticleSystem particleSystem;
+    [SerializeField] private float particleDamage = 1.5f;
+    List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
+    
 
     private void Update() 
     {
@@ -34,7 +35,7 @@ public class ShootParticle : MonoBehaviour
         {
             if(other.TryGetComponent<BossController>(out BossController bossController))
             {
-                bossController.health -= 2f;
+                bossController.health -= particleDamage;
             }
         }
     }

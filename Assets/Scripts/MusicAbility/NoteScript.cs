@@ -14,13 +14,16 @@ public class NoteScript : MonoBehaviour
     }
 
     private void Start() {
+        AbilityManager.instance.notesList.Add(this);
     }
+
 
     private void FixedUpdate() {
         rb.velocity = Vector2.left * noteSpeed;
 
         if(gameObject.transform.position.x < -10f) //to change
         {
+            AbilityManager.instance.notesList.Remove(this);
             Destroy(this.gameObject);
         }
     }

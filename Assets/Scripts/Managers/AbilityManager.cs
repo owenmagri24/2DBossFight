@@ -8,6 +8,7 @@ public class AbilityManager : MonoBehaviour
 
     public bool usingSpawner; //used in MusicAbility
     public GameObject[] playerPressers;
+    public List<NoteScript> notesList = new List<NoteScript>();
 
 
     void Awake()
@@ -16,6 +17,14 @@ public class AbilityManager : MonoBehaviour
             AbilityManager.instance = this;
         else if(instance != this)
             Destroy(gameObject);
+    }
+
+    public void IncreaseNoteSpeed(float speed)
+    {
+        for (int i = 0; i < notesList.Count; i++)
+        {
+            notesList[i].noteSpeed += speed;
+        }
     }
 
 

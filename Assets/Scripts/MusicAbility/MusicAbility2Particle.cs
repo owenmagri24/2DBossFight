@@ -5,9 +5,12 @@ using UnityEngine;
 public class MusicAbility2Particle : MonoBehaviour
 {
     private ParticleSystem ps;
-    List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
     private ParticleSystem.Particle [] particles;
+    [SerializeField] private float particleDamage = 0.5f;
     [SerializeField] private Transform bossPos;
+    List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
+    
+    
 
     void Start()
     {
@@ -44,7 +47,8 @@ public class MusicAbility2Particle : MonoBehaviour
         {
             if(other.TryGetComponent<BossController>(out BossController bossController))
             {
-                bossController.health -= 0.5f;
+                bossController.health -= particleDamage;
+                CinemachineShake.instance.ShakeCamera(2f, 0.3f);
             }
         }
     }

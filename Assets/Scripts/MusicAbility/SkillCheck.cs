@@ -20,12 +20,14 @@ public class SkillCheck : MonoBehaviour
             if(inSkillCheck)
             {
                 //note hit
-                if(note != null){ note.NoteDestroyAnimation(); }
+                if(note != null) note.NoteDestroyAnimation();
+                AbilityManager.instance.notesList.Remove(note);
                 note.PlayAbilityPs();
             }
             else
             {
                 //note missed
+                AbilityManager.instance.IncreaseNoteSpeed(12f);
             } 
         }
     }

@@ -41,6 +41,10 @@ public class UIManager : MonoBehaviour
     public BossController bossController;
     public Slider bossUIHealthBar;
 
+    [Header("Player")]
+    public PlayerMovement playerMovement;
+    public Slider playerUIHealthBar;
+
     void Start()
     {
         //Dash Ability
@@ -62,6 +66,8 @@ public class UIManager : MonoBehaviour
         //Set boss health bar max value to boss health
         bossUIHealthBar.maxValue = bossController.health;
 
+        //Set player health bar max value to player health
+        playerUIHealthBar.maxValue = playerMovement.health;
     }
 
 
@@ -72,6 +78,7 @@ public class UIManager : MonoBehaviour
         MusicAbility2();
         BarrageAbility();
         UpdateBossHealth();
+        UpdatePlayerHealth();
     }
 
     
@@ -190,5 +197,10 @@ public class UIManager : MonoBehaviour
     void UpdateBossHealth()
     {
         bossUIHealthBar.value = bossController.health;
+    }
+
+    void UpdatePlayerHealth()
+    {
+        playerUIHealthBar.value = playerMovement.health;
     }
 }

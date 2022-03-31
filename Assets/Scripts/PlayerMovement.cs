@@ -19,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     //Boundary
     private Vector2 mapBounds;
 
+    //Health
+    [SerializeField] private float startingHealth;
+    [HideInInspector] public float health;
+
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        health = startingHealth;
         activeSpeed = startingSpeed;
         Physics2D.IgnoreLayerCollision(3,7); //Ignores collision between layer 3 (Player) & layer 7 (Boss)
         mapBounds = new Vector3(12, 9, Camera.main.transform.position.z);
@@ -78,5 +83,11 @@ public class PlayerMovement : MonoBehaviour
         playerSprites.transform.localScale = currentScale;
 
         facingRight = !facingRight;
+    }
+
+    public void PlayerHit(float damage)
+    {
+        health -= damage;
+        animator.SetTrigger("Hit");
     }
 }
