@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using Mirror;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour //networkbehavior
 {
     //Movement
     Rigidbody2D rb;
@@ -36,9 +37,9 @@ public class PlayerMovement : MonoBehaviour
         mapBounds = new Vector3(12, 9, Camera.main.transform.position.z);
     }
 
-
     void FixedUpdate() 
     {
+        //if(!hasAuthority) { return; }
         Movement();
     }
 
