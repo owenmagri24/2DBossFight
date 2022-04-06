@@ -6,10 +6,10 @@ public class BarrageAbilityHolder : MonoBehaviour
 {
     public BarrageAbility ability;
     [SerializeField] private GameObject skillCheck;
-    [SerializeField] private RotationCheck rotationCheck;
     [SerializeField] private ParticleSystem ps;
-    float cooldownTime;
+    private RotationCheck rotationCheck;
     private KeyCode key;
+    private float cooldownTime;
 
     public enum AbilityState{
         ready,
@@ -19,9 +19,14 @@ public class BarrageAbilityHolder : MonoBehaviour
 
     [HideInInspector] public AbilityState state = AbilityState.ready;
 
-    private void Start() {
-        key = ability.key;
+    private void Awake() 
+    {
+        rotationCheck = FindObjectOfType<RotationCheck>();
+    }
 
+    private void Start() 
+    {
+        key = ability.key;
     }
 
     void Update()

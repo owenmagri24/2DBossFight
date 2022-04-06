@@ -23,16 +23,31 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerItem playerItemPrefab;
     [SerializeField] private Transform playerItemParent;
 
+    [SerializeField] private GameObject playButton;
+
     private void Start() 
     {
         PhotonNetwork.JoinLobby(); // Joins a photon lobby when scene loads
+    }
+
+    private void Update() 
+    {
+        if(PhotonNetwork.IsMasterClient) //&& PhotonNetwork.CurrentRoom.PlayerCount >= 2) //if this player created the room and more than 1 player in room
+        {
+            playButton.SetActive(true);
+        }
+        else
+        {
+            playButton.SetActive(false);
+        }
     }
 
     public void OnClickCreate()
     {
         if(roomInputField.text.Length >= 1) //Room name not empty
         {
-            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions(){ MaxPlayers = 2}); //Creates room with desired name and 2 max players
+            //Creates room with desired name, set max players, and broadcast changes to all players
+            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions(){ MaxPlayers = 4, BroadcastPropsChangeToAll = true}); 
         }
     }
 
@@ -123,5 +138,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer) //Called by Photon when player leaves room
     {
         UpdatePlayerList();
+    }
+
+    public void OnClickPlayGame()
+    {
+        PhotonNetwork.LoadLevel("GameScene");
     }
 }

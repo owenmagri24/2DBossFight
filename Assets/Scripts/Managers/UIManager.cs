@@ -45,8 +45,18 @@ public class UIManager : MonoBehaviour
     public PlayerMovement playerMovement;
     public Slider playerUIHealthBar;
 
+    private void Awake() 
+    {
+        abilityHolder = FindObjectOfType<AbilityHolder>();
+        musicAbilityHolder = FindObjectOfType<MusicAbilityHolder>();
+        musicAbilityHolder2 = FindObjectOfType<MusicAbility2Holder>();
+        barrageAbilityHolder = FindObjectOfType<BarrageAbilityHolder>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
+    }
+
     void Start()
     {
+
         //Dash Ability
         dashKey = ability.key;
         dashImage.fillAmount = 0;
