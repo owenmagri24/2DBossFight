@@ -211,6 +211,7 @@ public class UIManager : MonoBehaviour
 
     void UpdatePlayerHealth()
     {
+
         playerUIHealthBar.value = playerMovement.health;
     }
 }

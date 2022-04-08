@@ -6,38 +6,22 @@ using Photon.Pun;
 public class ShootParticle : MonoBehaviour
 {
     private PhotonView photonView;
-    private float canFireTime;
-    [SerializeField] private float startCanFireTime;
-    [SerializeField] new private ParticleSystem particleSystem;
+    private ParticleSystem ps;
+
     [SerializeField] private float particleDamage = 1.5f;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
     
     private void Awake() 
     {
         photonView = GetComponentInParent<PhotonView>();
+        ps = GetComponent<ParticleSystem>();
     }
 
-    private void Update() 
+    private void OnParticleCollision(GameObject other) 
     {
-        if(photonView.IsMine)
-        {
-            if(canFireTime <= 0) // if can fire
-            {
-                if(Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    particleSystem.Play(); //shoot particle
-                    canFireTime = startCanFireTime; //Reset CanFire timer
-                }
-            }
-            else
-            {
-                canFireTime -= Time.deltaTime; //reduce canfiretime per second
-            }
-        }
-    }
+        if(!photonView.IsMine) { return; } //Only deal damage if its my particle
 
-    private void OnParticleCollision(GameObject other) {
-        int events = particleSystem.GetCollisionEvents(other, colEvents);
+        int events = ps.GetCollisionEvents(other, colEvents);
 
         
         for (int i = 0; i < events; i++)

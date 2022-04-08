@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float activeSpeed;
     [HideInInspector] public Vector2 movementInput;
 
+    //Shooting
+    private float canFireTime;
+    [SerializeField] private float startCanFireTime;
+
     //Rotation and animation
     private Animator animator;
     public GameObject playerAttachments;
@@ -28,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     private PhotonView photonView;
     [SerializeField] private GameObject whiteArrow;
     
-    
+    //ParticleSystems;
+    [SerializeField] private ParticleSystem shootingPS;
 
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
@@ -48,6 +53,13 @@ public class PlayerMovement : MonoBehaviour
         mapBounds = new Vector3(12, 9, Camera.main.transform.position.z);
     }
 
+    private void Update() 
+    {
+        if(photonView.IsMine)
+        {
+            Shooting();
+        }
+    }
 
     void FixedUpdate() 
     {
@@ -64,23 +76,51 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        playerAttachments.transform.up = (mousePos - (Vector2)transform.position).normalized; //rotate playerattachments
+        photonView.RPC("LookDirection", RpcTarget.All); //doesnt work
 
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         rb.velocity = movementInput * activeSpeed;
 
+        //Movement
         if(movementInput.x < 0 && facingRight)
         {
             //Facing left
-            FlipSprites();
+            photonView.RPC("FlipSprites", RpcTarget.All);
         }
         if(movementInput.x > 0 && !facingRight)
         {
             //Facing Right
-            FlipSprites();
+            photonView.RPC("FlipSprites", RpcTarget.All);
         }
         animator.SetFloat("Speed", movementInput.sqrMagnitude);//animation
+    }
+
+    [PunRPC] // doesnt work -- direction doesn't change for other player
+    void LookDirection()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        playerAttachments.transform.up = (mousePos - (Vector2)transform.position).normalized; //rotate playerattachments
+    }
+
+    void Shooting()
+    {
+        if(canFireTime <= 0) // if can fire
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                photonView.RPC("RPC_Shoot", RpcTarget.All);
+                canFireTime = startCanFireTime; //Reset CanFire timer
+            }
+        }
+        else
+        {
+            canFireTime -= Time.deltaTime; //reduce canfiretime per second
+        }
+    }
+
+    [PunRPC] void RPC_Shoot() //Gets called on all instances of the photon viewID
+    {
+        shootingPS.Play(); //shoot particle
     }
 
     void Boundaries()
@@ -91,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = viewPos;
     }
 
+    [PunRPC] 
     void FlipSprites()
     {
         Vector3 currentScale = playerSprites.transform.localScale;
@@ -102,7 +143,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayerHit(float damage)
     {
+        if(!photonView.IsMine){ return; }
+
         health -= damage;
         animator.SetTrigger("Hit");
+        if(health <= 0)
+        {
+            //Dead
+        }
     }
 }

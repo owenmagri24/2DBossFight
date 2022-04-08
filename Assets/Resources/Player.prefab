@@ -14699,7 +14699,7 @@ GameObject:
   m_Layer: 3
   m_Name: ShootingProjectile
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -19561,8 +19561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3e4262315a57c4f8426ea2ce264719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startCanFireTime: 0.5
-  particleSystem: {fileID: 855772142164150140}
   particleDamage: 1.5
 --- !u!1 &855772142488101425
 GameObject:
@@ -19659,11 +19657,13 @@ MonoBehaviour:
   startingSpeed: 5
   activeSpeed: 0
   movementInput: {x: 0, y: 0}
+  startCanFireTime: 0.5
   playerAttachments: {fileID: 855772141900250824}
   playerSprites: {fileID: 855772141426938447}
   startingHealth: 25
   health: 0
   whiteArrow: {fileID: 855772142155560113}
+  shootingPS: {fileID: 855772142164150140}
 --- !u!114 &855772142488101420
 MonoBehaviour:
   m_ObjectHideFlags: 0
