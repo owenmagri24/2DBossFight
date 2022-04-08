@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,13 +24,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float startingHealth;
     [HideInInspector] public float health;
 
+    //Networking
+    private PhotonView photonView;
+    [SerializeField] private GameObject whiteArrow;
+    
+    
+
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        photonView = GetComponent<PhotonView>();
     }
 
     void Start()
     {
+        if(photonView.IsMine)
+        {
+            whiteArrow.SetActive(true); //Can only see your white arrow
+        }
         health = startingHealth;
         activeSpeed = startingSpeed;
         Physics2D.IgnoreLayerCollision(3,7); //Ignores collision between layer 3 (Player) & layer 7 (Boss)
@@ -39,7 +51,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() 
     {
-        Movement();
+        if(photonView.IsMine)
+        {
+            Movement();
+        }
     }
 
     private void LateUpdate() //Boundary check works smoother in late update

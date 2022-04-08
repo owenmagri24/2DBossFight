@@ -32,7 +32,7 @@ public class IntroP2Behaviour : StateMachineBehaviour
         {
             if(targetGroup != null)
             {
-                targetGroup.m_Targets[0].weight = 0; //Change player weight to 0 (Target boss)
+                targetGroup.m_Targets[1].weight = 0; //Change player weight to 0 (Target boss)
             }
         }
     }
@@ -40,7 +40,7 @@ public class IntroP2Behaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        targetGroup.m_Targets[0].weight = 1; // Change camera to normal
+        targetGroup.m_Targets[1].weight = 1; // Change camera to normal
         animator.transform.parent.GetComponent<CapsuleCollider2D>().enabled = true; //enable capsule collider
     }
 }

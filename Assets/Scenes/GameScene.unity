@@ -22463,9 +22463,6 @@ MonoBehaviour:
   m_RotationMode: 0
   m_UpdateMethod: 2
   m_Targets:
-  - target: {fileID: 0}
-    weight: 1
-    radius: 0
   - target: {fileID: 650965955}
     weight: 1
     radius: 0
@@ -41844,6 +41841,7 @@ MonoBehaviour:
   - {fileID: 645631137}
   - {fileID: 30737639}
   - {fileID: 2051934650}
+  cm_TargetGroup: {fileID: 1343474714}
 --- !u!4 &2143523487
 Transform:
   m_ObjectHideFlags: 0
