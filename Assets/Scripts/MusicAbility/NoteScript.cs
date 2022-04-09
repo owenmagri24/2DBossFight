@@ -7,6 +7,9 @@ public class NoteScript : MonoBehaviour
     public float noteSpeed;
     private Rigidbody2D rb;
     private Animator anim;
+
+    public GameObject player;
+    private ParticleSystem playerCirclePS;
     
     private void Awake() {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -33,14 +36,16 @@ public class NoteScript : MonoBehaviour
         if(gameObject.tag == "Note") //Red Note
         {
             //Play red note ability with every note hit
-            ParticleSystemManager.instance.playerParticleSystems[0].Play();
+            player.TryGetComponent<PlayerParticleSystem>(out var playerParticleSystem);
+            playerParticleSystem.PlayParticleSystem(0);
         }
-        else if(gameObject.tag == "Note2")
+        else if(gameObject.tag == "Note2") //Green note
         {
             //play green note ability
+            PlayerParticleSystem playerPSScript = player.GetComponent<PlayerParticleSystem>();
             //increase emissionrate with every note hit
-            float emissionRate = ParticleSystemManager.instance.GetEmissionRate(ParticleSystemManager.instance.playerParticleSystems[1]);
-            ParticleSystemManager.instance.ChangeEmissionRate(ParticleSystemManager.instance.playerParticleSystems[1], emissionRate + 0.6f);
+            float emissionRate = playerPSScript.GetPlayerEmissionRate(1);
+            playerPSScript.ChangePlayerEmissionRate(1, emissionRate + 0.6f);
         }
     }
 

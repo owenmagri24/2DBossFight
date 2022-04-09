@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         if(photonView.IsMine)
         {
             Shooting();
+            LookDirection();
         }
     }
 
@@ -76,8 +77,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        photonView.RPC("LookDirection", RpcTarget.All); //doesnt work
-
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         rb.velocity = movementInput * activeSpeed;
 
@@ -95,7 +94,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", movementInput.sqrMagnitude);//animation
     }
 
-    [PunRPC] // doesnt work -- direction doesn't change for other player
     void LookDirection()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

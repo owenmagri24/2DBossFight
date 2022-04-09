@@ -11,16 +11,17 @@ public class MusicAbility : AbilityBase
 
     public override void Activate(GameObject parent)
     {
-        AbilityManager.instance.StartCoroutine(noteSpawn());
+        AbilityManager.instance.StartCoroutine(noteSpawn(parent));
     }
 
-    public IEnumerator noteSpawn()
+    public IEnumerator noteSpawn(GameObject parent)
     {
         spawningReady = false;
 
         if(skillNote.tag == "Note2")//green note
         {
-            ParticleSystemManager.instance.PlayerMusicAbility2();
+            //turn on ability 2 particle system
+            parent.GetComponent<PlayerParticleSystem>().PlayParticleSystem(1);
         }
 
         if(!AbilityManager.instance.usingSpawner) //if first spawner is not being used
@@ -28,7 +29,8 @@ public class MusicAbility : AbilityBase
             AbilityManager.instance.usingSpawner = true; //using first spawner
             for (int i = 0; i < Random.Range(3,6); i++)
             {
-                Instantiate(skillNote, noteSpawners[0].transform.position, Quaternion.identity); //instantiate at first spawner
+                GameObject note = Instantiate(skillNote, noteSpawners[0].transform.position, Quaternion.identity); //instantiate at first spawner
+                note.GetComponent<NoteScript>().player = parent;
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -36,7 +38,8 @@ public class MusicAbility : AbilityBase
         {
             for (int i = 0; i < Random.Range(3,6); i++)
             {
-                Instantiate(skillNote, noteSpawners[1].transform.position, Quaternion.identity); //instantiate at second spawner
+                GameObject note = Instantiate(skillNote, noteSpawners[0].transform.position, Quaternion.identity); //instantiate at second spawner
+                note.GetComponent<NoteScript>().player = parent;
                 yield return new WaitForSeconds(1f);
             }
         }

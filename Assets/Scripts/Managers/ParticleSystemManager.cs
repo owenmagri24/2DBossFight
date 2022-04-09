@@ -9,11 +9,17 @@ public class ParticleSystemManager : MonoBehaviour
     public ParticleSystem[] bossParticleSystems;
     public ParticleSystem[] playerParticleSystems;
 
+    [SerializeField] private GameObject playerPrefab;
+
     private void Awake() {
         if(instance == null)
             ParticleSystemManager.instance = this;
         else if(instance != this)
             Destroy(gameObject);
+    }
+
+    private void Start() {
+        playerParticleSystems = playerPrefab.GetComponentsInChildren<ParticleSystem>();
     }
 
     public ParticleSystem GetRandomBossParticleSystem()
@@ -62,11 +68,11 @@ public class ParticleSystemManager : MonoBehaviour
 
     public void PlayerMusicAbility2()
     {
-        var main = playerParticleSystems[1].main;
+        var main = playerParticleSystems[6].main; //RotatingPS
         if(main.simulationSpace == ParticleSystemSimulationSpace.World)
         {
             main.simulationSpace = ParticleSystemSimulationSpace.Local;
         }
-        playerParticleSystems[1].Play();
-    } 
+        playerParticleSystems[6].Play();
+    }
 }

@@ -11,10 +11,6 @@ public class DashAbility : AbilityBase
     {
         PlayerMovement movement = parent.GetComponent<PlayerMovement>();
         Rigidbody2D rb = parent.GetComponent<Rigidbody2D>();
-        Animator anim = parent.GetComponentInChildren<Animator>();
-
-        anim.SetTrigger("Dash");
-        //rb.velocity = movement.movementInput.normalized * dashVelocity; old dash system
         movement.activeSpeed = dashVelocity;
     }
 }

@@ -7,14 +7,14 @@ public class MusicAbility2Particle : MonoBehaviour
     private ParticleSystem ps;
     private ParticleSystem.Particle [] particles;
     [SerializeField] private float particleDamage = 0.5f;
-    [SerializeField] private Transform bossPos;
+    private Transform bossPos;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
-    
     
 
     void Start()
     {
         ps = GetComponent<ParticleSystem>();
+        bossPos = GameObject.FindObjectOfType<BossController>().transform;
     }
 
     void Update()
@@ -37,7 +37,8 @@ public class MusicAbility2Particle : MonoBehaviour
         ps.SetParticles(particles, particles.Length);
         
         ps.Stop();
-        ParticleSystemManager.instance.ChangeEmissionRate(ps, 1f); //reset emission rate to 1f
+        
+        gameObject.GetComponentInParent<PlayerParticleSystem>().ChangePlayerEmissionRate(1, 1f); //rotatingPS
     }
 
     private void OnParticleCollision(GameObject other) {

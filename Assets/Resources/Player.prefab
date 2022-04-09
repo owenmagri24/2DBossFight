@@ -9749,7 +9749,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleDamage: 0.5
-  bossPos: {fileID: 0}
 --- !u!1 &855772141900250824
 GameObject:
   m_ObjectHideFlags: 0
@@ -9759,6 +9758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 855772141900250823}
+  - component: {fileID: 4313384237760524304}
   m_Layer: 3
   m_Name: PlayerAttachments
   m_TagString: Untagged
@@ -9783,6 +9783,22 @@ Transform:
   m_Father: {fileID: 855772142488101423}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4313384237760524304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855772141900250824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &855772141994693115
 GameObject:
   m_ObjectHideFlags: 0
@@ -19578,8 +19594,9 @@ GameObject:
   - component: {fileID: 855772142488101419}
   - component: {fileID: 855772142488101424}
   - component: {fileID: 855772142488101417}
+  - component: {fileID: -3543369659937702348}
   - component: {fileID: 4213668681602467133}
-  - component: {fileID: 7503425779389886995}
+  - component: {fileID: 8215910431241640051}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -19724,6 +19741,22 @@ MonoBehaviour:
   skillCheck: {fileID: 8620900277798408861, guid: 0f43823170b40c5438980ef1043481f5, type: 3}
   ps: {fileID: 855772141994693112}
   state: 0
+--- !u!114 &-3543369659937702348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855772142488101425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab6e848f72894d9d740a4892fbb2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystems:
+  - {fileID: 855772142840278005}
+  - {fileID: 855772141853170874}
+  - {fileID: 855772141994693112}
 --- !u!114 &4213668681602467133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19743,12 +19776,13 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 7503425779389886995}
+  - {fileID: 8215910431241640051}
+  - {fileID: 4313384237760524304}
   - {fileID: 5802719612099958618}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7503425779389886995
+--- !u!114 &8215910431241640051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19757,30 +19791,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 855772142488101425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 1
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &855772142492993251
 GameObject:
   m_ObjectHideFlags: 0
@@ -29755,7 +29772,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -30625,7 +30642,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 18.600002
         minScalar: 30
         maxCurve:
           serializedVersion: 2

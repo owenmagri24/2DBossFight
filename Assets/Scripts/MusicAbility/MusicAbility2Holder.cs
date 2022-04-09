@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MusicAbility2Holder : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MusicAbility2Holder : MonoBehaviour
     private KeyCode key;
     private GameObject whichPresser;
     [SerializeField] private MusicAbility2Particle musicAbility2Particle;
+    private PhotonView photonView;
 
     public enum AbilityState{
         ready,
@@ -18,6 +20,10 @@ public class MusicAbility2Holder : MonoBehaviour
 
     [HideInInspector] public AbilityState state = AbilityState.ready;
 
+    private void Awake() {
+        photonView = GetComponent<PhotonView>();
+    }
+
     private void Start() {
         key = ability.key;
 
@@ -25,6 +31,8 @@ public class MusicAbility2Holder : MonoBehaviour
 
     void Update()
     {
+        if(!photonView.IsMine){ return; }
+
         switch (state)
         {
             case AbilityState.ready:
@@ -61,7 +69,13 @@ public class MusicAbility2Holder : MonoBehaviour
         }
     }
 
-    private void ShootParticles(){
+    private void ShootParticles()
+    {
+        photonView.RPC("RPC_ShootParticles", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void RPC_ShootParticles(){
         musicAbility2Particle.ShootMusicAbility2Particles();
     }
 }

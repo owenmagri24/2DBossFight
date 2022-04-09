@@ -41689,6 +41689,7 @@ MonoBehaviour:
   playerParticleSystems:
   - {fileID: 0}
   - {fileID: 0}
+  playerPrefab: {fileID: 855772142488101425, guid: a19cb862c21e6ee44b5b769afa5daa3b, type: 3}
 --- !u!4 &2036454702
 Transform:
   m_ObjectHideFlags: 0

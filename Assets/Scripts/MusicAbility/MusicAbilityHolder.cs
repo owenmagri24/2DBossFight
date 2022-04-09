@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MusicAbilityHolder : MonoBehaviour
 {
     public MusicAbility ability;
-    float cooldownTime;
-    KeyCode key;
-    GameObject whichPresser;
+    private float cooldownTime;
+    private KeyCode key;
+    private GameObject whichPresser;
+    private PhotonView photonView;
 
     public enum AbilityState{
         ready,
@@ -17,13 +19,18 @@ public class MusicAbilityHolder : MonoBehaviour
 
     [HideInInspector] public AbilityState state = AbilityState.ready;
 
+    private void Awake() {
+        photonView = GetComponent<PhotonView>();
+    }
+
     private void Start() {
         key = ability.key;
-
     }
 
     void Update()
     {
+        if(!photonView.IsMine) { return; }
+
         switch (state)
         {
             case AbilityState.ready://If state is ready

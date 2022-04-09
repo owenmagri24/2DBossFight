@@ -40,6 +40,14 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_Shoot
+  - FlipSprites
+  - LookDirection
+  - RPC_PlayParticleSystem
+  - ShootMusicAbility2Particles
+  - ShootParticles
+  - ChangePlayerEmissionRate
+  - RPC_ChangePlayerEmissionRate
+  - RPC_ShootParticles
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
