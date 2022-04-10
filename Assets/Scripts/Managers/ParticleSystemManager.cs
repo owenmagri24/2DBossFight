@@ -1,31 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ParticleSystemManager : MonoBehaviour
 {
     public static ParticleSystemManager instance;
-
     public ParticleSystem[] bossParticleSystems;
-    public ParticleSystem[] playerParticleSystems;
-
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject bossPrefab;
+    private PhotonView photonView;
 
     private void Awake() {
         if(instance == null)
             ParticleSystemManager.instance = this;
         else if(instance != this)
             Destroy(gameObject);
+
+        photonView = GetComponent<PhotonView>();
     }
 
-    private void Start() {
-        playerParticleSystems = playerPrefab.GetComponentsInChildren<ParticleSystem>();
-    }
 
     public ParticleSystem GetRandomBossParticleSystem()
     {
         int rand = Random.Range(0, bossParticleSystems.Length);
         return bossParticleSystems[rand];
+    }
+
+    public int ReturnWhichParticleSystem(ParticleSystem ps) //Returns the parameter ps as int from bossParticleSystem[]
+    {
+        for (int i = 0; i < bossParticleSystems.Length; i++)
+        {
+            if(ps.name == bossParticleSystems[i].name)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public void ChangeParticleSpeed(ParticleSystem ps, float value)
@@ -66,13 +76,14 @@ public class ParticleSystemManager : MonoBehaviour
             return emission.rateOverTime.constant;
     }
 
-    public void PlayerMusicAbility2()
+    public void PlayParticleSystem(int whichPS)
     {
-        var main = playerParticleSystems[6].main; //RotatingPS
-        if(main.simulationSpace == ParticleSystemSimulationSpace.World)
-        {
-            main.simulationSpace = ParticleSystemSimulationSpace.Local;
-        }
-        playerParticleSystems[6].Play();
+        photonView.RPC("RPC_PlayParticleSystem", RpcTarget.All, whichPS);
+    }
+
+    [PunRPC]
+    void RPC_PlayParticleSystem(int whichPS)
+    {
+        bossParticleSystems[whichPS].Play();
     }
 }

@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
         musicAbilityHolder2 = FindObjectOfType<MusicAbility2Holder>();
         barrageAbilityHolder = FindObjectOfType<BarrageAbilityHolder>();
         playerMovement = FindObjectOfType<PlayerMovement>();
+        bossController = FindObjectOfType<BossController>();
     }
 
     void Start()

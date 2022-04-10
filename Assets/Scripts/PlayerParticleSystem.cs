@@ -21,7 +21,6 @@ public class PlayerParticleSystem : MonoBehaviour
             {
                 main.simulationSpace = ParticleSystemSimulationSpace.Local;
             }
-            //particleSystems[1].Play();
         }
 
         photonView.RPC("RPC_PlayParticleSystem", RpcTarget.All, whichPS);

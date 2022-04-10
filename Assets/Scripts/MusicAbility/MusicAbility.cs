@@ -38,7 +38,7 @@ public class MusicAbility : AbilityBase
         {
             for (int i = 0; i < Random.Range(3,6); i++)
             {
-                GameObject note = Instantiate(skillNote, noteSpawners[0].transform.position, Quaternion.identity); //instantiate at second spawner
+                GameObject note = Instantiate(skillNote, noteSpawners[1].transform.position, Quaternion.identity); //instantiate at second spawner
                 note.GetComponent<NoteScript>().player = parent;
                 yield return new WaitForSeconds(1f);
             }

@@ -8,6 +8,7 @@ public class AbilityManager : MonoBehaviour
 
     public bool usingSpawner; //used in MusicAbility
     public GameObject[] playerPressers;
+    public GameObject[] barrageSkillChecks;
     public List<NoteScript> notesList = new List<NoteScript>();
 
 

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class BarrageAbilityHolder : MonoBehaviour
 {
     public BarrageAbility ability;
-    [SerializeField] private GameObject skillCheck;
-    [SerializeField] private ParticleSystem ps;
+    private GameObject skillCheck;
     private RotationCheck rotationCheck;
     private KeyCode key;
     private float cooldownTime;
+    private PhotonView photonView;
 
     public enum AbilityState{
         ready,
@@ -21,16 +22,20 @@ public class BarrageAbilityHolder : MonoBehaviour
 
     private void Awake() 
     {
-        rotationCheck = FindObjectOfType<RotationCheck>();
+        photonView = GetComponent<PhotonView>();
     }
 
     private void Start() 
     {
         key = ability.key;
+        skillCheck = AbilityManager.instance.barrageSkillChecks[0];
+        rotationCheck = skillCheck.GetComponentInChildren<RotationCheck>();
     }
 
     void Update()
     {
+        if(!photonView.IsMine){ return; }
+
         switch (state)
         {
             case AbilityState.ready://If state is ready
@@ -48,7 +53,7 @@ public class BarrageAbilityHolder : MonoBehaviour
                     if(rotationCheck.inCheck)
                     {
                         //rotation check hit
-                        ps.Play(); //start particle system
+                        gameObject.GetComponent<PlayerParticleSystem>().PlayParticleSystem(2); //start barrage ps
                     }
                     gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;  //unfreeze player
                     gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;

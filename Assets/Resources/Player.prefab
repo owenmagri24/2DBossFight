@@ -19738,8 +19738,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 11400000, guid: 95b3816c193a1284b9f45d0713c82ae0, type: 2}
-  skillCheck: {fileID: 8620900277798408861, guid: 0f43823170b40c5438980ef1043481f5, type: 3}
-  ps: {fileID: 855772141994693112}
   state: 0
 --- !u!114 &-3543369659937702348
 MonoBehaviour:

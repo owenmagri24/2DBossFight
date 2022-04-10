@@ -13,7 +13,7 @@ public class IdleP2Behaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
-        ps = ParticleSystemManager.instance.GetRandomBossParticleSystem(); //play random particle system
+        //ps = ParticleSystemManager.instance.GetRandomBossParticleSystem(); //play random particle system
 
         initialSpeed = ps.main.simulationSpeed; //get speed of chosen particle system
         initialEmission = ParticleSystemManager.instance.GetEmissionRate(ps); //get emission rate of chosen particle system

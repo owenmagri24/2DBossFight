@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class BossController : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class BossController : MonoBehaviour
     private bool moveRight;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
+    private PhotonView photonView;
+
 
     private void Awake() {
         spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         anim = gameObject.GetComponentInChildren<Animator>();
+        photonView = GetComponent<PhotonView>();
     }
     
     private void Start() {

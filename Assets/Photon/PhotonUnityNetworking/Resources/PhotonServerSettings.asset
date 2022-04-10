@@ -48,6 +48,7 @@ MonoBehaviour:
   - ChangePlayerEmissionRate
   - RPC_ChangePlayerEmissionRate
   - RPC_ShootParticles
+  - RPC_IdleStateEnter
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
