@@ -19,16 +19,16 @@ public class ShootParticle : MonoBehaviour
 
     private void OnParticleCollision(GameObject other) 
     {
-        if(!photonView.IsMine) { return; } //Only deal damage if its my particle
+        if(!photonView.IsMine) { return; }
 
         int events = ps.GetCollisionEvents(other, colEvents);
-
         
         for (int i = 0; i < events; i++)
         {
-            if(other.TryGetComponent<BossController>(out BossController bossController))
+            if(other.tag == "Boss")
             {
-                bossController.health -= particleDamage;
+                PhotonView target = other.gameObject.GetComponent<PhotonView>();
+                target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
             }
         }
     }

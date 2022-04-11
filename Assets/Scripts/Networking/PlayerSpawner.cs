@@ -21,9 +21,16 @@ public class PlayerSpawner : MonoBehaviour
             playerToSpawn = playerPrefabs[0];
         }
         GameObject playerSpawned = PhotonNetwork.Instantiate(playerToSpawn.name, spawnPoint.position, Quaternion.identity);
-        GameObject bossSpawned = PhotonNetwork.InstantiateRoomObject(bossPrefab.name, Vector3.zero, Quaternion.identity);
-        cm_TargetGroup.AddMember(bossSpawned.transform, 1, 0);
         cm_TargetGroup.AddMember(playerSpawned.transform, 1, 0);
+    }
 
+    private void Update() {
+        // if(PhotonNetwork.MasterClient == null)
+        // {
+        //     int rand = Random.Range(0, PhotonNetwork.PlayerList.Length);
+        //     PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[rand]);
+        //     Debug.Log("Changed Master to: "+ PhotonNetwork.MasterClient.NickName + " from " + PhotonNetwork.PlayerList.Length + " number of players.");
+        // }
+        Debug.Log(PhotonNetwork.MasterClient.NickName);
     }
 }

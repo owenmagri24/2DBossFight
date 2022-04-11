@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class RunP2Behaviour : StateMachineBehaviour
 {
@@ -12,37 +13,43 @@ public class RunP2Behaviour : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if(!PhotonNetwork.IsMasterClient){ return; }
+
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
-        //ps = ParticleSystemManager.instance.GetRandomBossParticleSystem(); //play random particle system
+        ps = bossController.GetRandomBossPs();
 
         initialSpeed = ps.main.simulationSpeed; //get speed of chosen particle system
-        initialEmission = ParticleSystemManager.instance.GetEmissionRate(ps); //get emission rate of ps
+        initialEmission = bossController.GetEmissionRate(ps); //get emission rate of ps
 
-        ParticleSystemManager.instance.ChangeParticleSpeed(ps, initialSpeed + 0.2f); //make particles faster
-        ParticleSystemManager.instance.ChangeEmissionRate(ps, initialEmission + 2f); //increase emission rate
+        bossController.ChangeParticleSpeed(bossController.ReturnWhichParticleSystem(ps), initialSpeed + 0.2f); //make particles faster
+        bossController.ChangeEmissionRate(bossController.ReturnWhichParticleSystem(ps), initialEmission + 2f); //increase emission rate
         bossController.moveSpeed += 2f; //make boss move faster
 
-        ps.Play(); //start particle system
+        bossController.PlayParticleSystem(bossController.ReturnWhichParticleSystem(ps));
         timer = 0f;//reset timer
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if(!PhotonNetwork.IsMasterClient){ return; }
+
         bossController.BossMove(); //need to increase speed
 
         timer += Time.deltaTime;
 
         if(timer > 4f) //to change
         {
-            animator.SetTrigger("Idle2");
+            bossController.ChangeAnimation("Idle2");
         }
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        ParticleSystemManager.instance.ResetParticleSpeed(ps, initialSpeed); //reset particle speed
-        ParticleSystemManager.instance.ChangeEmissionRate(ps, initialEmission); //reset emission rate
+        if(!PhotonNetwork.IsMasterClient){ return; }
+
+        bossController.ChangeParticleSpeed(bossController.ReturnWhichParticleSystem(ps), initialSpeed); //reset particle speed
+        bossController.ChangeEmissionRate(bossController.ReturnWhichParticleSystem(ps), initialEmission); //reset emission rate
         bossController.moveSpeed -= 2f; //reset boss speed
-        ps.Stop();
+        bossController.StopParticleSystem(bossController.ReturnWhichParticleSystem(ps));
     }
 }

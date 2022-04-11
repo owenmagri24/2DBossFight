@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MusicAbility2Particle : MonoBehaviour
 {
+    private PhotonView photonView;
     private ParticleSystem ps;
     private ParticleSystem.Particle [] particles;
     [SerializeField] private float particleDamage = 0.5f;
@@ -13,6 +15,7 @@ public class MusicAbility2Particle : MonoBehaviour
 
     void Start()
     {
+        photonView = GetComponentInParent<PhotonView>();
         ps = GetComponent<ParticleSystem>();
         bossPos = GameObject.FindObjectOfType<BossController>().transform;
     }
@@ -42,13 +45,16 @@ public class MusicAbility2Particle : MonoBehaviour
     }
 
     private void OnParticleCollision(GameObject other) {
+        if(!photonView.IsMine) { return; }
+
         int events = ps.GetCollisionEvents(other, colEvents);
 
         for (int i = 0; i < events; i++)
         {
-            if(other.TryGetComponent<BossController>(out BossController bossController))
+            if(other.tag == "Boss")
             {
-                bossController.health -= particleDamage;
+                PhotonView target = other.gameObject.GetComponent<PhotonView>();
+                target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
                 CinemachineShake.instance.ShakeCamera(2f, 0.3f);
             }
         }

@@ -9710,10 +9710,9 @@ GameObject:
   - component: {fileID: 4662730112023576789}
   - component: {fileID: -7545571445843900464}
   - component: {fileID: -303075620431318141}
-  - component: {fileID: -4634431206493115266}
   m_Layer: 7
   m_Name: EnemyBoss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9786,8 +9785,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  startingHealth: 200
+  startingHealth: 50
   health: 200
+  particleSystems:
+  - {fileID: 4662730112014066210}
+  - {fileID: 4662730111387546760}
+  - {fileID: 4662730112585484425}
 --- !u!114 &-7545571445843900464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9808,6 +9811,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -303075620431318141}
+  - {fileID: 8011620753180795038}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -9827,23 +9831,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-4634431206493115266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4662730112023576785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9e35d682c239694ea2c20ba51525f7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossParticleSystems:
-  - {fileID: 4662730112014066210}
-  - {fileID: 4662730111387546760}
-  - {fileID: 4662730112585484425}
-  bossPrefab: {fileID: 4662730112023576785}
 --- !u!1 &4662730112585484420
 GameObject:
   m_ObjectHideFlags: 0
@@ -14731,6 +14718,7 @@ GameObject:
   - component: {fileID: 4662730113447001919}
   - component: {fileID: 4662730113447001917}
   - component: {fileID: 4662730113447001918}
+  - component: {fileID: 8011620753180795038}
   m_Layer: 7
   m_Name: EnemySprite
   m_TagString: Untagged
@@ -14822,3 +14810,39 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8011620753180795038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662730113447001912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 1
+    Name: Idle
+  - Type: 9
+    SynchronizeType: 1
+    Name: Run
+  - Type: 9
+    SynchronizeType: 1
+    Name: Phase2
+  - Type: 9
+    SynchronizeType: 1
+    Name: Idle2
+  - Type: 9
+    SynchronizeType: 1
+    Name: Run2
+  - Type: 9
+    SynchronizeType: 1
+    Name: Death
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0

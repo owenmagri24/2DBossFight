@@ -1,26 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class BarrageParticle : MonoBehaviour
 {
+    private PhotonView photonView;
     private ParticleSystem ps;
     [SerializeField] private float particleDamage = 0.4f;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
     
     void Awake()
     {
+        photonView = GetComponentInParent<PhotonView>();
         ps = GetComponent<ParticleSystem>();
     }
 
     private void OnParticleCollision(GameObject other) {
+        if(!photonView.IsMine) { return; }
+
         int events = ps.GetCollisionEvents(other, colEvents);
 
         for (int i = 0; i < events; i++)
         {
-            if(other.TryGetComponent<BossController>(out BossController bossController))
+            if(other.tag == "Boss")
             {
-                bossController.health -= particleDamage;
+                PhotonView target = other.gameObject.GetComponent<PhotonView>();
+                target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
                 CinemachineShake.instance.ShakeCamera(0.7f, 0.2f);
             }
         }

@@ -148,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
         if(health <= 0)
         {
             //Dead
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

@@ -1,27 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MusicAbilityParticle : MonoBehaviour
 {
+    private PhotonView photonView;
     new private ParticleSystem particleSystem;
     [SerializeField] private float particleDamage = 4f;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
 
     void Awake()
     {
+        photonView = GetComponentInParent<PhotonView>();
         particleSystem = gameObject.GetComponent<ParticleSystem>();
     }
 
     private void OnParticleCollision(GameObject other) {
+        if(!photonView.IsMine) { return; }
+
         int events = particleSystem.GetCollisionEvents(other, colEvents);
 
         for (int i = 0; i < events; i++)
         {
-            if(other.TryGetComponent<BossController>(out BossController bossController))
+            if(other.tag == "Boss")
             {
-                bossController.health -= particleDamage;
-                //CinemachineShake.instance.ShakeCamera(0.7f, 0.2f);
+                PhotonView target = other.gameObject.GetComponent<PhotonView>();
+                target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
             }
         }
     }

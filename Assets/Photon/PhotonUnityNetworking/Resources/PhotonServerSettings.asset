@@ -49,6 +49,19 @@ MonoBehaviour:
   - RPC_ChangePlayerEmissionRate
   - RPC_ShootParticles
   - RPC_IdleStateEnter
+  - RPC_StopPS
+  - RPC_BossMovement
+  - RPC_ChangeTrigger
+  - RPC_TestFlipSprite
+  - RPC_FlipSprite
+  - BossHealth
+  - RPC_ChangeAnimation
+  - RPC_IntroAnimation
+  - RPC_MoveLeft
+  - RPC_ChangeEmissionRate
+  - RPC_ChangeParticleSpeed
+  - RPC_DamageBoss
+  - ReduceHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

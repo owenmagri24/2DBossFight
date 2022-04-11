@@ -8,6 +8,7 @@ TagManager:
   - PlayerSkillCheck
   - Note
   - Note2
+  - Boss
   layers:
   - Default
   - TransparentFX
