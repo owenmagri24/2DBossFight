@@ -11,6 +11,8 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private CinemachineTargetGroup cm_TargetGroup;
 
+    public List<GameObject> currentPlayers = new List<GameObject>();
+
     private void Awake() 
     {
         int randomNumber = Random.Range(0, spawnPoints.Length);
@@ -22,15 +24,5 @@ public class PlayerSpawner : MonoBehaviour
         }
         GameObject playerSpawned = PhotonNetwork.Instantiate(playerToSpawn.name, spawnPoint.position, Quaternion.identity);
         cm_TargetGroup.AddMember(playerSpawned.transform, 1, 0);
-    }
-
-    private void Update() {
-        // if(PhotonNetwork.MasterClient == null)
-        // {
-        //     int rand = Random.Range(0, PhotonNetwork.PlayerList.Length);
-        //     PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[rand]);
-        //     Debug.Log("Changed Master to: "+ PhotonNetwork.MasterClient.NickName + " from " + PhotonNetwork.PlayerList.Length + " number of players.");
-        // }
-        Debug.Log(PhotonNetwork.MasterClient.NickName);
     }
 }

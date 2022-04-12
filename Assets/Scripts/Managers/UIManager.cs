@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviourPunCallbacks
 {
     [Header("Dash Ability")]
     public AbilityHolder abilityHolder;
@@ -44,6 +46,14 @@ public class UIManager : MonoBehaviour
     [Header("Player")]
     public PlayerMovement playerMovement;
     public Slider playerUIHealthBar;
+
+    [Header("Respawning")]
+    public GameObject RespawningPanel;
+    public Text respawnTimerText;
+    private float currentRespawnTimer;
+
+    [Header("Menu")]
+    public GameObject menuPanel;
 
     private void Awake() 
     {
@@ -212,7 +222,56 @@ public class UIManager : MonoBehaviour
 
     void UpdatePlayerHealth()
     {
-
         playerUIHealthBar.value = playerMovement.health;
+    }
+
+    public void RestartLevel()
+    {
+        RespawningPanel.SetActive(true);
+        StartCoroutine(StartCountdown(5f));
+    }
+
+    IEnumerator StartCountdown(float respawnTimer)
+    {
+        currentRespawnTimer = respawnTimer;
+        while(currentRespawnTimer > 0)
+        {
+            respawnTimerText.text = currentRespawnTimer.ToString();
+            yield return new WaitForSeconds(1f);
+            currentRespawnTimer--;
+        }
+        if(currentRespawnTimer <= 0)
+        {
+            PhotonNetwork.LoadLevel(2);
+        }
+    }
+
+    public void OpenMenu()
+    {
+        if(menuPanel.activeSelf)
+        {
+            menuPanel.SetActive(false);
+        }
+        else
+            menuPanel.SetActive(true);
+    }
+
+    public void OnClickResume()
+    {
+        menuPanel.SetActive(false);
+    }
+    
+    public void OnClickLeave()
+    {
+        //Leave room
+        menuPanel.SetActive(false);
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene(0);
+
+        base.OnLeftRoom();
     }
 }

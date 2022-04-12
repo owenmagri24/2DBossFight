@@ -12,10 +12,10 @@ public class RunBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(!PhotonNetwork.IsMasterClient){ return; }
-
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
         ps = bossController.GetRandomBossPs();
+        if(!PhotonNetwork.IsMasterClient){ return; }
+
         bossController.PlayParticleSystem(bossController.ReturnWhichParticleSystem(ps)); //Plays ps in int format because of RPC method
         timer = 0f;
     }

@@ -13,10 +13,9 @@ public class RunP2Behaviour : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(!PhotonNetwork.IsMasterClient){ return; }
-
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
         ps = bossController.GetRandomBossPs();
+        if(!PhotonNetwork.IsMasterClient){ return; }
 
         initialSpeed = ps.main.simulationSpeed; //get speed of chosen particle system
         initialEmission = bossController.GetEmissionRate(ps); //get emission rate of ps

@@ -62,6 +62,9 @@ MonoBehaviour:
   - RPC_ChangeParticleSpeed
   - RPC_DamageBoss
   - ReduceHealth
+  - RPC_SyncScript
+  - RPC_SyncPS
+  - RPC_PlayerDeath
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -31,14 +31,20 @@ public class PlayerMovement : MonoBehaviour
     //Networking
     private PhotonView photonView;
     [SerializeField] private GameObject whiteArrow;
+    private PlayerSpawner playerSpawner;
     
     //ParticleSystems;
     [SerializeField] private ParticleSystem shootingPS;
+
+    //UI
+    private UIManager uiManager;
 
     private void Awake() {
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         photonView = GetComponent<PhotonView>();
+        playerSpawner = FindObjectOfType<PlayerSpawner>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     void Start()
@@ -47,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
         {
             whiteArrow.SetActive(true); //Can only see your white arrow
         }
+
+        playerSpawner.currentPlayers.Add(gameObject);
+
         health = startingHealth;
         activeSpeed = startingSpeed;
         Physics2D.IgnoreLayerCollision(3,7); //Ignores collision between layer 3 (Player) & layer 7 (Boss)
@@ -59,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Shooting();
             LookDirection();
+            OpenMenu();
         }
     }
 
@@ -148,7 +158,29 @@ public class PlayerMovement : MonoBehaviour
         if(health <= 0)
         {
             //Dead
+            photonView.RPC("RPC_PlayerDeath", RpcTarget.All);
             PhotonNetwork.Destroy(gameObject);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlayerDeath() //remove player from list and check if all players dead
+    {
+        playerSpawner.currentPlayers.Remove(gameObject);
+
+        if(playerSpawner.currentPlayers.Count <= 0)
+        {
+            Debug.Log("All dead");
+            //Go back to lobby
+            uiManager.RestartLevel();
+        }
+    }
+
+    void OpenMenu()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            uiManager.OpenMenu();
         }
     }
 }

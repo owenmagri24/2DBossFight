@@ -13,10 +13,10 @@ public class IdleBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(!PhotonNetwork.IsMasterClient){ return; }
-        
         bossController = animator.transform.parent.GetComponent<BossController>(); //get bosscontroller from parent
         ps = bossController.GetRandomBossPs();
+        if(!PhotonNetwork.IsMasterClient){ return; }
+
         initialSpeed = ps.main.simulationSpeed; //get speed of chosen particle system
         bossController.ChangeParticleSpeed(bossController.ReturnWhichParticleSystem(ps), initialSpeed + 0.2f);
         bossController.PlayParticleSystem(bossController.ReturnWhichParticleSystem(ps)); //Plays ps in int format because of RPC method
@@ -43,4 +43,6 @@ public class IdleBehaviour : StateMachineBehaviour
         bossController.ChangeParticleSpeed(bossController.ReturnWhichParticleSystem(ps), initialSpeed);
         bossController.StopParticleSystem(bossController.ReturnWhichParticleSystem(ps));
     }
+
+    
 }

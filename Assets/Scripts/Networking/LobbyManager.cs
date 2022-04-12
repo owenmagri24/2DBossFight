@@ -66,7 +66,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             UpdateRoomList(roomList);
             nextUpdateTime = Time.time + timeBetweenUpdates;
         }
-        
     }
 
     void UpdateRoomList(List<RoomInfo> list) //When there is a change in photon room list
@@ -142,6 +141,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnClickPlayGame()
     {
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel("GameScene");
+    }
+
+    public void OnClickQuit()
+    {
+        Application.Quit();
     }
 }
