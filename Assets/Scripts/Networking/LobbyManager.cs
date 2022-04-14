@@ -144,6 +144,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel("GameScene");
+        SoundManager.instance.StopSound("LobbyMusic");
+        SoundManager.instance.PlaySound("BossFightMusic");
     }
 
     public void OnClickQuit()

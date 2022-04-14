@@ -9,11 +9,24 @@ public class BarrageParticle : MonoBehaviour
     private ParticleSystem ps;
     [SerializeField] private float particleDamage = 0.4f;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
+
+    private int currentNumberOfParticles = 0;
     
     void Awake()
     {
         photonView = GetComponentInParent<PhotonView>();
         ps = GetComponent<ParticleSystem>();
+    }
+
+    private void Update() {
+
+        if(ps.particleCount > currentNumberOfParticles)
+        {
+            //play sound
+            SoundManager.instance.PlaySound("BarrageShoot");
+        }
+
+        currentNumberOfParticles = ps.particleCount;
     }
 
     private void OnParticleCollision(GameObject other) {

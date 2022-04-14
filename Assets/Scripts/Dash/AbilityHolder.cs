@@ -42,6 +42,7 @@ public class AbilityHolder : MonoBehaviour
                 //If state is ready
                 if(Input.GetKeyDown(key)) //Player presses ability key
                 {
+                    SoundManager.instance.PlaySound("Dash");
                     ability.Activate(gameObject); //call ability function
                     anim.SetTrigger("Dash");
                     state = AbilityState.active; //set state to active

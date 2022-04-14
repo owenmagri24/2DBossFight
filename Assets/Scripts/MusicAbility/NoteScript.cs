@@ -38,6 +38,7 @@ public class NoteScript : MonoBehaviour
             //Play red note ability with every note hit
             player.TryGetComponent<PlayerParticleSystem>(out var playerParticleSystem);
             playerParticleSystem.PlayParticleSystem(0);
+            SoundManager.instance.PlaySound("QHit");
         }
         else if(gameObject.tag == "Note2") //Green note
         {
@@ -46,6 +47,7 @@ public class NoteScript : MonoBehaviour
             //increase emissionrate with every note hit
             float emissionRate = playerPSScript.GetPlayerEmissionRate(1);
             playerPSScript.ChangePlayerEmissionRate(1, emissionRate + 0.6f);
+            SoundManager.instance.PlaySound("EHit");
         }
     }
 

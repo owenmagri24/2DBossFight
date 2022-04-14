@@ -114,9 +114,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if(canFireTime <= 0) // if can fire
         {
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if(Input.GetKeyDown(KeyCode.Mouse0) && uiManager.menuOpen == false)
             {
                 photonView.RPC("RPC_Shoot", RpcTarget.All);
+                SoundManager.instance.PlaySound("PlayerShoot");
                 canFireTime = startCanFireTime; //Reset CanFire timer
             }
         }
@@ -152,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerHit(float damage)
     {
         if(!photonView.IsMine){ return; }
+        SoundManager.instance.PlaySound("PlayerHit");
 
         health -= damage;
         animator.SetTrigger("Hit");
@@ -170,8 +172,6 @@ public class PlayerMovement : MonoBehaviour
 
         if(playerSpawner.currentPlayers.Count <= 0)
         {
-            Debug.Log("All dead");
-            //Go back to lobby
             uiManager.RestartLevel();
         }
     }

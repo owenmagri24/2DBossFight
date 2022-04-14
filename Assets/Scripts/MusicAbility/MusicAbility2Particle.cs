@@ -58,5 +58,6 @@ public class MusicAbility2Particle : MonoBehaviour
                 CinemachineShake.instance.ShakeCamera(2f, 0.3f);
             }
         }
+        SoundManager.instance.PlaySound("ECollision");
     }
 }

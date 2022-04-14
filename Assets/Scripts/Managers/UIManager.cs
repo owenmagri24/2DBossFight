@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     [Header("Menu")]
     public GameObject menuPanel;
+    public bool menuOpen = false;
 
     private void Awake() 
     {
@@ -242,6 +243,8 @@ public class UIManager : MonoBehaviourPunCallbacks
         }
         if(currentRespawnTimer <= 0)
         {
+            SoundManager.instance.StopSound("BossFightMusic");
+            SoundManager.instance.PlaySound("BossFightMusic");
             PhotonNetwork.LoadLevel(2);
         }
     }
@@ -250,14 +253,18 @@ public class UIManager : MonoBehaviourPunCallbacks
     {
         if(menuPanel.activeSelf)
         {
+            Debug.Log("Set active to false");
+            menuOpen = false;
             menuPanel.SetActive(false);
         }
         else
+            menuOpen = true;
             menuPanel.SetActive(true);
     }
 
     public void OnClickResume()
     {
+        menuOpen = false;
         menuPanel.SetActive(false);
     }
     
@@ -265,13 +272,14 @@ public class UIManager : MonoBehaviourPunCallbacks
     {
         //Leave room
         menuPanel.SetActive(false);
+        SoundManager.instance.StopSound("BossFightMusic");
         PhotonNetwork.LeaveRoom();
     }
 
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);
-
+        SoundManager.instance.PlaySound("LobbyMusic");
         base.OnLeftRoom();
     }
 }

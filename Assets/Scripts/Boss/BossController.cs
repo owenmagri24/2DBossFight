@@ -109,6 +109,7 @@ public class BossController : MonoBehaviour
     {
         if(photonView.IsMine)
         {
+            SoundManager.instance.PlaySound("BossHit");
             health -= value;
         }
         else
