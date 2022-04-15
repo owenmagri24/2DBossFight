@@ -9,11 +9,6 @@ public class SkillCheck : MonoBehaviour
     public bool inSkillCheck;
     private NoteScript note;
 
-    private void Awake() {
-        
-    }
-    
-
     private void Update() {
         if(Input.GetKeyDown(presserKey))
         {

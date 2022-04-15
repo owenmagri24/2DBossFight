@@ -7,6 +7,7 @@ public class ShootParticle : MonoBehaviour
 {
     private PhotonView photonView;
     private ParticleSystem ps;
+    private PlayerMovement playerMovement;
 
     [SerializeField] private float particleDamage = 1.5f;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
@@ -15,6 +16,7 @@ public class ShootParticle : MonoBehaviour
     {
         photonView = GetComponentInParent<PhotonView>();
         ps = GetComponent<ParticleSystem>();
+        playerMovement = GetComponentInParent<PlayerMovement>();
     }
 
     private void OnParticleCollision(GameObject other) 
@@ -29,6 +31,7 @@ public class ShootParticle : MonoBehaviour
             {
                 PhotonView target = other.gameObject.GetComponent<PhotonView>();
                 target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
+                playerMovement.DealtDamage(particleDamage);
             }
         }
     }

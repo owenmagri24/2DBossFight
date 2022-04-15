@@ -33,6 +33,8 @@ public class NoteScript : MonoBehaviour
     
     public void PlayAbilityPs()
     {
+        if(player == null){ return; }
+        
         if(gameObject.tag == "Note") //Red Note
         {
             //Play red note ability with every note hit

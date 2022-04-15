@@ -9785,7 +9785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  startingHealth: 200
+  startingHealth: 50
   health: 200
   particleSystems:
   - {fileID: 4662730112014066210}

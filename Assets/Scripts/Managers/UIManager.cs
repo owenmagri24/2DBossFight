@@ -47,14 +47,20 @@ public class UIManager : MonoBehaviourPunCallbacks
     public PlayerMovement playerMovement;
     public Slider playerUIHealthBar;
 
-    [Header("Respawning")]
-    public GameObject RespawningPanel;
+    [Header("Scoreboard")]
+    public GameObject scoreboard;
+    public GameObject respawningPanel;
+    public GameObject victoryPanel;
+    public GameObject[] damageTexts;
     public Text respawnTimerText;
     private float currentRespawnTimer;
 
     [Header("Menu")]
     public GameObject menuPanel;
-    public bool menuOpen = false;
+    [HideInInspector] public bool menuOpen = false;
+
+    
+    
 
     private void Awake() 
     {
@@ -228,8 +234,34 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     public void RestartLevel()
     {
-        RespawningPanel.SetActive(true);
-        StartCoroutine(StartCountdown(5f));
+        StartCoroutine(ShowScoreBoard(1f, respawningPanel));
+        StartCoroutine(StartCountdown(7f));
+    }
+
+    public void Victory()
+    {
+        menuOpen = true;
+        StartCoroutine(ShowScoreBoard(1f, victoryPanel));
+    }
+
+    IEnumerator ShowScoreBoard(float value, GameObject panel)
+    {
+        yield return new WaitForSeconds(value);
+
+        scoreboard.SetActive(true);
+        panel.SetActive(true);
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            damageTexts[i].SetActive(true);
+
+            float damage = 0;
+            if(PhotonNetwork.PlayerList[i].CustomProperties.ContainsKey("DamageDealt"))
+            {
+                damage = (float)PhotonNetwork.PlayerList[i].CustomProperties["DamageDealt"];
+            }
+
+            damageTexts[i].GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName + ": " + Mathf.Round(damage);
+        }
     }
 
     IEnumerator StartCountdown(float respawnTimer)
@@ -249,11 +281,16 @@ public class UIManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void OnClickClose()
+    {
+        menuOpen = false;
+        scoreboard.SetActive(false);
+    }
+
     public void OpenMenu()
     {
         if(menuPanel.activeSelf)
         {
-            Debug.Log("Set active to false");
             menuOpen = false;
             menuPanel.SetActive(false);
         }

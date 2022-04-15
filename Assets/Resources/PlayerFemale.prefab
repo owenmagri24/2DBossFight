@@ -19598,7 +19598,7 @@ GameObject:
   - component: {fileID: 4213668681602467133}
   - component: {fileID: 8215910431241640051}
   m_Layer: 3
-  m_Name: Player
+  m_Name: PlayerFemale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24732,7 +24732,7 @@ SpriteRenderer:
   m_SortingLayerID: 207931575
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: db426444bff369343a5b510123d7caed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4682ca9106ad5e245befd80bcb898151, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -24753,7 +24753,7 @@ Animator:
   m_GameObject: {fileID: 855772142838347023}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c25b046868e0ac8418b447eca41fc24f, type: 2}
+  m_Controller: {fileID: 9100000, guid: a722af5743693ab4cb7e27148a6f187a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -24776,16 +24776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 1
-    SynchronizeType: 1
-    Name: Speed
-  - Type: 9
-    SynchronizeType: 1
-    Name: Dash
-  - Type: 9
-    SynchronizeType: 1
-    Name: Hit
+  m_SynchronizeParameters: []
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

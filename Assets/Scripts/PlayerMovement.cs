@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     //Shooting
     private float canFireTime;
     [SerializeField] private float startCanFireTime;
+    private float damageDealt;
 
     //Rotation and animation
     private Animator animator;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private PhotonView photonView;
     [SerializeField] private GameObject whiteArrow;
     private PlayerSpawner playerSpawner;
+    private ExitGames.Client.Photon.Hashtable myCustomProperties = new ExitGames.Client.Photon.Hashtable();
     
     //ParticleSystems;
     [SerializeField] private ParticleSystem shootingPS;
@@ -52,12 +54,15 @@ public class PlayerMovement : MonoBehaviour
         if(photonView.IsMine)
         {
             whiteArrow.SetActive(true); //Can only see your white arrow
+            SoundManager.instance.StopSound("LobbyMusic");
+            SoundManager.instance.PlaySound("BossFightMusic");
         }
 
         playerSpawner.currentPlayers.Add(gameObject);
 
         health = startingHealth;
         activeSpeed = startingSpeed;
+        damageDealt = 0;
         Physics2D.IgnoreLayerCollision(3,7); //Ignores collision between layer 3 (Player) & layer 7 (Boss)
         mapBounds = new Vector3(12, 9, Camera.main.transform.position.z);
     }
@@ -160,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
         if(health <= 0)
         {
             //Dead
+            SetDamageDealt();
             photonView.RPC("RPC_PlayerDeath", RpcTarget.All);
             PhotonNetwork.Destroy(gameObject);
         }
@@ -182,5 +188,22 @@ public class PlayerMovement : MonoBehaviour
         {
             uiManager.OpenMenu();
         }
+    }
+
+    public void DealtDamage(float value)
+    {
+        damageDealt += value;
+    }
+
+    void SetDamageDealt()
+    {
+        myCustomProperties["DamageDealt"] = damageDealt;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+    }
+
+    public void BossDie()
+    {
+        if(photonView.IsMine)
+            SetDamageDealt();
     }
 }

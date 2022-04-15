@@ -14,6 +14,7 @@ public class BossController : MonoBehaviour
     //Health
     [SerializeField] private float startingHealth;
     [HideInInspector] public float health;
+    private UIManager uIManager;
 
     //Photon
     private PhotonView photonView;
@@ -26,6 +27,7 @@ public class BossController : MonoBehaviour
         spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         anim = gameObject.GetComponentInChildren<Animator>();
         photonView = GetComponent<PhotonView>();
+        uIManager = FindObjectOfType<UIManager>();
     }
     
     private void Start() {
@@ -99,6 +101,7 @@ public class BossController : MonoBehaviour
     
     public void Death()
     {
+        uIManager.Victory();
         if(!PhotonNetwork.IsMasterClient) { return; }
         
         PhotonNetwork.CleanRpcBufferIfMine(photonView);
@@ -114,6 +117,7 @@ public class BossController : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.PlaySound("BossHit");
             health -= value;
         }
         Debug.Log(health);

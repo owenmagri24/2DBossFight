@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class MusicAbility2Particle : MonoBehaviour
 {
+    private PlayerMovement playerMovement;
     private PhotonView photonView;
     private ParticleSystem ps;
     private ParticleSystem.Particle [] particles;
@@ -15,6 +16,7 @@ public class MusicAbility2Particle : MonoBehaviour
 
     void Start()
     {
+        playerMovement = GetComponentInParent<PlayerMovement>();
         photonView = GetComponentInParent<PhotonView>();
         ps = GetComponent<ParticleSystem>();
         bossPos = GameObject.FindObjectOfType<BossController>().transform;
@@ -56,6 +58,7 @@ public class MusicAbility2Particle : MonoBehaviour
                 PhotonView target = other.gameObject.GetComponent<PhotonView>();
                 target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
                 CinemachineShake.instance.ShakeCamera(2f, 0.3f);
+                playerMovement.DealtDamage(particleDamage);
             }
         }
         SoundManager.instance.PlaySound("ECollision");

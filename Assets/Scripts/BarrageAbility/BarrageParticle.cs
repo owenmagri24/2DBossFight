@@ -6,6 +6,7 @@ using Photon.Pun;
 public class BarrageParticle : MonoBehaviour
 {
     private PhotonView photonView;
+    private PlayerMovement playerMovement;
     private ParticleSystem ps;
     [SerializeField] private float particleDamage = 0.4f;
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
@@ -14,12 +15,14 @@ public class BarrageParticle : MonoBehaviour
     
     void Awake()
     {
+        playerMovement = GetComponentInParent<PlayerMovement>();
         photonView = GetComponentInParent<PhotonView>();
         ps = GetComponent<ParticleSystem>();
     }
 
     private void Update() {
-
+        if(!photonView.IsMine) { return; }
+        
         if(ps.particleCount > currentNumberOfParticles)
         {
             //play sound
@@ -40,6 +43,7 @@ public class BarrageParticle : MonoBehaviour
             {
                 PhotonView target = other.gameObject.GetComponent<PhotonView>();
                 target.RPC("ReduceHealth", RpcTarget.All, particleDamage);
+                playerMovement.DealtDamage(particleDamage);
                 CinemachineShake.instance.ShakeCamera(0.7f, 0.2f);
             }
         }
