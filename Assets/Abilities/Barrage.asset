@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Barrage
   m_EditorClassIdentifier: 
   name: Barrage
-  cooldownTime: 10
+  cooldownTime: 11
   activeTime: 0
   key: 114
-  skillCheck: {fileID: 0}

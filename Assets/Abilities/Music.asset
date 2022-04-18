@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Music
   m_EditorClassIdentifier: 
   name: Music
-  cooldownTime: 5
+  cooldownTime: 6
   activeTime: 0
   key: 113
   skillNote: {fileID: 3097109400265963379, guid: 94f862ba51afe144fb0edc9ec709a611, type: 3}
   noteSpawners:
   - {fileID: 5427480210042669963, guid: 1013068e0d6a6dd4cabb3668979b87dd, type: 3}
   - {fileID: 5427480210042669963, guid: 521993efc5d944ccdaac6374b22eb403, type: 3}
-  spawningReady: 0
+  spawningReady: 1

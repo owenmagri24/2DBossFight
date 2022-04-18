@@ -37,10 +37,10 @@ public class NoteScript : MonoBehaviour
         
         if(gameObject.tag == "Note") //Red Note
         {
+            SoundManager.instance.PlaySound("QHit");
             //Play red note ability with every note hit
             player.TryGetComponent<PlayerParticleSystem>(out var playerParticleSystem);
             playerParticleSystem.PlayParticleSystem(0);
-            SoundManager.instance.PlaySound("QHit");
         }
         else if(gameObject.tag == "Note2") //Green note
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Music2
   m_EditorClassIdentifier: 
   name: Music2
-  cooldownTime: 7
+  cooldownTime: 8
   activeTime: 0
   key: 101
   skillNote: {fileID: 3097109400265963379, guid: 44f0f821fe50142bc952eafb228bbd61, type: 3}
