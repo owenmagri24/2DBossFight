@@ -2447,7 +2447,7 @@ Tilemap:
       - {fileID: 21300000, guid: 9360fc09d364bb040820ad56a71ab203, type: 3}
       - {fileID: 21300000, guid: 7e515bf27d7035c46a2e673680a9ad56, type: 3}
       - {fileID: 21300000, guid: eb2f5a6e6df839b46b8dfc82518c4dfb, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -3, y: 8, z: 0}
@@ -2456,7 +2456,7 @@ Tilemap:
       - {fileID: 21300000, guid: 9360fc09d364bb040820ad56a71ab203, type: 3}
       - {fileID: 21300000, guid: 7e515bf27d7035c46a2e673680a9ad56, type: 3}
       - {fileID: 21300000, guid: eb2f5a6e6df839b46b8dfc82518c4dfb, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 2, y: 8, z: 0}
@@ -10933,6 +10933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1232373734}
   - component: {fileID: 1232373733}
+  - component: {fileID: 1232373735}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -11027,6 +11028,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1232373735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232373732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1358d05d97f2049abd2a398ae495bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876952982
 GameObject:
   m_ObjectHideFlags: 0
