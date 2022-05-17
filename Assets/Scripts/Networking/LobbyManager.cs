@@ -11,6 +11,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject roomPanel;
     [SerializeField] private Text roomName;
+    [SerializeField] private Text regionName;
 
     [SerializeField] private RoomItem roomItemPrefab;
     List<RoomItem> roomItemsList = new List<RoomItem>();
@@ -28,6 +29,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Start() 
     {
         PhotonNetwork.JoinLobby(); // Joins a photon lobby when scene loads
+        regionName.text = "Region: " + PhotonNetwork.CloudRegion;
     }
 
     private void Update() 
@@ -103,6 +105,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster() //When player leaves room, they rejoin lobby
     {
         PhotonNetwork.JoinLobby();
+        regionName.text = "Region: " + PhotonNetwork.CloudRegion;
     }
 
     void UpdatePlayerList()
